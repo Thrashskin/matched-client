@@ -5,7 +5,7 @@ export default class Signup extends Component {
     render(){
         return(
           <div>
-              signup form
+              SIGNUP FORM   
             {/* <form onSubmit={this.handleFormSubmit}>
               <label>Email:</label>
               <input type="text" name="email" value={this.state.email} onChange={ e => this.handleChange(e)}/>
