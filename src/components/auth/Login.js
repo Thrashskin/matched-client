@@ -2,7 +2,7 @@ import React from 'react'
 import {Link} from 'react-router-dom'
 import AuthService from './auth-service'
 
-export default class Signup extends React.Component {
+export default class Login extends React.Component {
 
   constructor(props) {
     super(props)
@@ -12,34 +12,10 @@ export default class Signup extends React.Component {
 
     this.state = {
       email: '',
-      password: '',
-      goal: ''
+      password: ''
     }
 
     this.service = new AuthService();
-  }
-
-
-
-  handleFormSubmit(event) {
-    event.preventDefault();
-    const {email, password} = this.state;
-    const kind = this.state.goal.includes('talent') ? 'Company': 'Seeker';
-
-    this.service.signup(email, password, kind)
-    .then(response => {
-
-      this.setState({
-        email: '',
-        password: '',
-        goal: ''
-      });
-
-      this.props.setUser(response);
-    
-    })
-    .catch(error => error);
-
   }
 
   handleChange(event) {
@@ -49,30 +25,45 @@ export default class Signup extends React.Component {
     })
   }
 
+  handleFormSubmit(event) {
+
+    const { email, password } = this.state;
+    event.preventDefault();
+
+    this.service.login(email, password)
+    .then(response => {
+      
+      this.setState({
+        email: '',
+        password: ''
+      })
+      this.props.setUser(response)
+    })
+    .catch(error => error)
+
+    this.setState({
+        email: '',
+        password: ''
+    })
+  }
+
     render(){
         return(
           <div>
-              SIGNUP FORM   
-            <form onSubmit={this.handleFormSubmit}>
+              LOGIN FORM   
+            <form onSubmit={ e => this.handleFormSubmit(e)}>
               <label>Email:</label>
               <input type="text" name="email" value={this.state.email} onChange={ e => this.handleChange(e)}/>
               
               <label>Password:</label>
               <input name="password" type="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
-
-              <label>I want to...:</label>
-              <select name='goal' onChange={ e => this.handleChange(e)}>
-                <option>Land my dream job</option>
-                <option>Hire the best talent in the world</option>
-              </select>
               
               <input type="submit" value="Signup" />
             </form>
-       
-            <p>Already have account? 
-                <Link to={"/login"}> Login</Link>
+
+            <p>Don't have an account? 
+                <Link to={"/signup"}>Sign Up</Link>
             </p>
-       
           </div>
         )
       }
