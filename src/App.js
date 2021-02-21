@@ -10,6 +10,7 @@ import Login from './components/auth/Login'
 import Logout from './components/auth/Logout'
 import HorizontalNavbar from './components/HorizontalNavbar'
 import Profile from './components/Profile'
+import EditProfile from './components/EditProfile'
 
 
 
@@ -56,6 +57,7 @@ render() {
         <Route exact path="/signup" render={ () =>  <Signup setUser={this.setUserInSession} /> }/>
         <Route exact path="/login" render={ () =>  <Login setUser={this.setUserInSession} /> }/>
         <Route exact path="/profile" render={ () =>  <Profile userInSession={this.state.userInSession} /> }/>
+        <Route exact path="/profile/edit" render={ () =>  <EditProfile userInSession={this.state.userInSession} /> }/>
       </Switch>
     </div>
   );

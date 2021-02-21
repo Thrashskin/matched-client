@@ -1,19 +1,20 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import UserDetails from './UserDetails'
 
-export default class Profile extends React.Component {
+export default class EditProfile extends React.Component {
 
     constructor(props) {
         super(props)
     }
 
+
+
     render() {
         return (
             <div>
                 {
-                this.props.userInSession ? <UserDetails userInSession={this.props.userInSession}/> :
-                <p>Please, log in =)</p>
+                this.props.userInSession ? <this.UserDetails userInSession={this.props.userInSession}/> :
+                <p>You must be logged in to be able to edit your profile</p>
                 }
             </div>
         )
