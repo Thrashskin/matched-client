@@ -12,7 +12,11 @@ export default class Profile extends React.Component {
         return (
             <div>
                 {
-                this.props.userInSession ? <UserDetails userInSession={this.props.userInSession}/> :
+                this.props.userInSession ? 
+                <div>
+                    <UserDetails userInSession={this.props.userInSession}/>
+                    <Link to='/profile/edit' >Edit Profile</Link>
+                </div> :
                 <p>Please, log in =)</p>
                 }
             </div>
