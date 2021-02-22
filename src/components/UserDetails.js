@@ -45,18 +45,18 @@ export default function UserDetails(props) {
         )
     } else {
 
-        let offers = []
+        // let offers = []
 
-        if (props.userInSession.stack) {
-            offers = [props.userInSession.offers.map((offer, index) => {
-                return <Offer key={index} title={offer.title} candidates={offer.candidates.length} />
-            })]
-        }
+        // if (props.userInSession.stack) {
+        //     offers = [props.userInSession.offers.map((offer, index) => {
+        //         return <Offer key={index} title={offer.title} candidates={offer.candidates.length} />
+        //     })]
+        // }
         return (
             <div>
                 <h1>{props.userInSession.name}</h1>
                 <p>Location: {`${props.userInSession.city}, ${props.userInSession.country}`}</p>
-                {
+                {/* {
                     (props.userInSession.ofers) ? 
                     <div>
                         <p>Offers:</p>
@@ -67,7 +67,7 @@ export default function UserDetails(props) {
                     </div>
                     :
                     null
-                }
+                } */}
             </div>
         );
     }

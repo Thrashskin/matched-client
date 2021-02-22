@@ -6,17 +6,16 @@ import Form from 'react-bootstrap/Form'
 import FormControl from 'react-bootstrap/FormControl'
 import Button from 'react-bootstrap/Button'
 import {Link} from 'react-router-dom'
-import './HorizontalNavbar.css'
+import './Navbar.css'
 
-export default class HorizontalNavbar extends React.Component {
+export default class Sidebar extends React.Component {
     render() {
         return (
-            <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">Logo</Navbar.Brand>
+            <Navbar bg="light" variant="dark">
                 <Nav className="mr-auto">
-                <Link to="/">Home</Link>
+                <Link to="/offers">Published offers</Link>
                 <br/>
-                <Link to="/profile">My Profile</Link>
+                <Link to="/offers/add-offer">New Offer</Link>
                 </Nav>
                 <Form inline>
                 </Form>

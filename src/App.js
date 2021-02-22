@@ -5,12 +5,14 @@ import React from 'react';
 import {Link, Switch, Route} from 'react-router-dom'
 
 //LOCAL COMPONENTS
-import Signup from './components/auth/Signup'
-import Login from './components/auth/Login'
-import Logout from './components/auth/Logout'
-import HorizontalNavbar from './components/HorizontalNavbar'
-import Profile from './components/Profile'
-import EditProfile from './components/EditProfile'
+import Signup from './components/auth/Signup';
+import Login from './components/auth/Login';
+import Logout from './components/auth/Logout';
+import NavigationBar from './components/NavigationBar';
+import Sidebar from './components/Sidebar';
+import Profile from './components/Profile';
+import EditProfile from './components/EditProfile';
+import AddOffer from './components/AddOffer';
 
 
 
@@ -39,7 +41,8 @@ render() {
   return (
     <div className="App">
       <header className="App-header">
-        <HorizontalNavbar/>
+        <NavigationBar />
+        <Sidebar />
         <p>
           Welcome to Matched - The first step to find the special one ;) (We are talking about a job!)
         </p>
@@ -58,6 +61,7 @@ render() {
         <Route exact path="/login" render={ () =>  <Login setUser={this.setUserInSession} /> }/>
         <Route exact path="/profile" render={ () =>  <Profile userInSession={this.state.userInSession} /> }/>
         <Route exact path="/profile/edit" render={ () =>  <EditProfile userInSession={this.state.userInSession} /> }/>
+        <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/>
       </Switch>
     </div>
   );
