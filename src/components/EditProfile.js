@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
@@ -12,7 +11,7 @@ export default class EditProfile extends React.Component {
 
         if (this.props.userInSession) {
             if (this.props.userInSession.kind === 'Seeker') {
-                const {name, lastName, city, country, email, gitHub, linkedIn, _id} = this.props.userInSession;
+                const {name, lastName, city, country, email, gitHub, linkedIn} = this.props.userInSession;
                 this.state = {
                     name: name,
                     lastName: lastName,
