@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
 import axios from 'axios'
+import AuthService from './auth/auth-service'
 
 export default class AddOffer extends React.Component {
 
@@ -17,13 +18,16 @@ export default class AddOffer extends React.Component {
             salaryFrom: 0,
             salaryTo: 0
         }
+
+        this.service = new AuthService();
+
     }
 
     handleFormSubmit(event) {
 
         event.preventDefault();
         let stackNew = this.state.stack.split(',')
-        let reqBody = {
+        let offerBody = {
             title: this.state.title,
             description: this.state.description,
             stack: stackNew,
@@ -35,14 +39,19 @@ export default class AddOffer extends React.Component {
             }
         }
 
-        console.log(reqBody)
-        
-        
+        this.service.createOffer(offerBody)
+        .then(response => console.log(response))
+        .catch(error => console.log(error.response));
+
+        // axios.post('http://localhost:5000/api/offer', offerBody)
+        // .then( response =>  console.log(response))
+        // .catch(error => console.log(error));
+
+        //console.log(offerBody)
         
     }
 
     handleChange(event) {
-        console.log(this.state)
         const { name, value } = event.target;
         this.setState({
             [name]: value

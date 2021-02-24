@@ -35,8 +35,13 @@ class AuthService {
             return error;
         })
     }
-    
-}
 
+    createOffer = (newOffer) => {
+        return this.service.post('offer', newOffer)
+        .then( response =>  response)
+        .catch(error => error);
+    }
+       
+}
 
 export default AuthService;
