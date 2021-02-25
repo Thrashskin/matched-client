@@ -41,6 +41,12 @@ class AuthService {
         .then( response =>  response)
         .catch(error => error);
     }
+
+    getOffers = (companyID) => { //MAYBE this one doesn't need to be done through the service.
+        return this.service.get(`${companyID}/offers`)
+        .then(response => response)
+        .catch(error => error)
+    }
        
 }
 

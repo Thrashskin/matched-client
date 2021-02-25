@@ -9,16 +9,24 @@ import {Link} from 'react-router-dom'
 import './Navbar.css'
 
 export default class Sidebar extends React.Component {
+
+    constructor(props) {
+        super(props);
+    }
+
     render() {
+
         return (
             <Navbar bg="light" variant="dark">
                 <Nav className="mr-auto">
                 <Link to="/offers">Published offers</Link>
                 <br/>
                 <Link to="/offers/add-offer">New Offer</Link>
+                <br/>
+                <Link to="/offers">My Offers</Link>
                 </Nav>
-                <Form inline>
-                </Form>
+                {/* <Form inline>
+                </Form> */}
             </Navbar>
         )
     }

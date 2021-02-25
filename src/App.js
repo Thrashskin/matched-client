@@ -14,6 +14,7 @@ import Profile from './components/Profile';
 import EditProfile from './components/EditProfile';
 import AddOffer from './components/AddOffer';
 import ProtectedRoute from './components/auth/protected-route'
+import OfferList from './components/OfferList';
 
 
 
@@ -43,7 +44,7 @@ render() {
     <div className="App">
       <header className="App-header">
         <NavigationBar />
-        <Sidebar />
+        <Sidebar userInSession={this.state.userInSession}/>
         <p>
           Welcome to Matched - The first step to find the special one ;) (We are talking about a job!)
         </p>
@@ -61,8 +62,9 @@ render() {
         <Route exact path="/signup" render={ () =>  <Signup setUser={this.setUserInSession} /> }/>
         <Route exact path="/login" render={ () =>  <Login setUser={this.setUserInSession} /> }/>
         <Route exact path="/profile" render={ () =>  <Profile userInSession={this.state.userInSession} /> }/>
-        <Route exact path="/profile/edit" render={ () =>  <EditProfile userInSession={this.state.userInSession} /> }/>
+        <Route exact path="/profile/edit" render={ () =>  <EditProfile userInSession={this.state.userInSession} /> }/> {/*NEEDS PROTECTION*/}
         {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
+        <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList}/>
         <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer}/>
       </Switch>
     </div>
