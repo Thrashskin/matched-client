@@ -14,21 +14,30 @@ export default class OfferList extends React.Component {
     }
 
     componentDidMount() {
-        //console.log(this.props.loggedInUser._id)
         this.service.getOffers(this.props.loggedInUser._id)
-        .then(response => console.log(response))
+        .then(response => {
+            this.setState({
+                offers: response.data
+            }, () => {console.log(this.state.offers)})
+        })
         .catch(error => console.log(error));
     }
 
+    
+
     render() {
+
+        let offersToRender = this.state.offers.map( offer => {
+           return ( <li>
+                         <Link to={`/offers/${offer._id}`}><h5>{offer.title}</h5></Link>
+                         <p>{offer.stack}</p>
+                    </li>)
+        })
+
         return (
-            this.state.offers ? 
+            (this.state.offers) ? 
                 <ul>
-                    {[this.state.offers].map( offer => {
-                        <li>
-                            <p>{offer}</p>
-                        </li>
-                    })}
+                    {[offersToRender]}
                 </ul>
                 :
                 <p>You haven't published any offer yet. Do you want to <Link to='offers/add-offer'>public one?</Link></p>

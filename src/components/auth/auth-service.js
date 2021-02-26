@@ -47,6 +47,12 @@ class AuthService {
         .then(response => response)
         .catch(error => error)
     }
+
+    getOfferDetails = (offerID) => {
+        return this.service.get(`offer/${offerID}`)
+        .then(response => response)
+        .catch(error => error)
+    }
        
 }
 

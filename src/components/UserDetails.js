@@ -1,16 +1,15 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
 
 export default function UserDetails(props) {
 
-    let Offer = (props) => {
-        return (
-            <div>
-                <h2>Title: {props.title} </h2>
-                <p>Applications: {props.candidates}</p>
-            </div>
-        );
-    }
+    // let Offer = (props) => {
+    //     return (
+    //         <div>
+    //             <h2>Title: {props.title} </h2>
+    //             <p>Applications: {props.candidates}</p>
+    //         </div>
+    //     );
+    // }
 
     if (props.userInSession.kind === 'Seeker') {
         

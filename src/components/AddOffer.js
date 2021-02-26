@@ -2,7 +2,6 @@ import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import axios from 'axios'
 import AuthService from './auth/auth-service'
 
 export default class AddOffer extends React.Component {

@@ -15,6 +15,7 @@ import EditProfile from './components/EditProfile';
 import AddOffer from './components/AddOffer';
 import ProtectedRoute from './components/auth/protected-route'
 import OfferList from './components/OfferList';
+import OfferDetails from './components/OfferDetails';
 
 
 
@@ -65,6 +66,8 @@ render() {
         <Route exact path="/profile/edit" render={ () =>  <EditProfile userInSession={this.state.userInSession} /> }/> {/*NEEDS PROTECTION*/}
         {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
         <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList}/>
+        <Route exact path="/offers/:offerID" render = { props => <OfferDetails parentProps = {props} user = {this.state.userInSession}/>} />
+        <Route exact path="/offers/:offerID" user = {this.state.userInSession} component={OfferDetails} />
         <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer}/>
       </Switch>
     </div>
