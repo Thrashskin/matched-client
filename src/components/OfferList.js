@@ -18,7 +18,7 @@ export default class OfferList extends React.Component {
         .then(response => {
             this.setState({
                 offers: response.data
-            }, () => {console.log(this.state.offers)})
+            })
         })
         .catch(error => console.log(error));
     }
@@ -27,8 +27,8 @@ export default class OfferList extends React.Component {
 
     render() {
 
-        let offersToRender = this.state.offers.map( offer => {
-           return ( <li>
+        let offersToRender = this.state.offers.map( (offer, index) => {
+           return ( <li key={index}>
                          <Link to={`/offers/${offer._id}`}><h5>{offer.title}</h5></Link>
                          <p>{offer.stack}</p>
                     </li>)

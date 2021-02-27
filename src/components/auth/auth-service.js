@@ -53,7 +53,12 @@ class AuthService {
         .then(response => response)
         .catch(error => error)
     }
-       
+
+    editOffer = (offerID, editedOffer) => {
+        return this.service.put(`/offer/${offerID}`, editedOffer)
+        .then(response => response)
+        .catch(error => error)
+    }      
 }
 
 export default AuthService;

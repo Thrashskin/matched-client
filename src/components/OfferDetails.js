@@ -8,12 +8,12 @@ export default class OfferDetails extends React.Component {
         super(props);
         this.state = {}
         this.service = new AuthService();
-
+        this.offerID = this.props.parentProps.match.params.offerID;
     }
 
     componentDidMount() {
-        let {offerID} = this.props.parentProps.match.params;
-        this.service.getOfferDetails(offerID)
+        //let {offerID} = this.props.parentProps.match.params;
+        this.service.getOfferDetails(this.offerID)
         .then(response => {
             let offerDetails = response.data
             this.setState(offerDetails)
@@ -32,8 +32,8 @@ export default class OfferDetails extends React.Component {
     CompanyOptions = () => {
         return (
             <div>
-                <Link to='/ediTest'>Edit</Link>
-                <Link to='/DeleteTest'>Delete</Link>
+                <Link to={`/offers/${this.offerID}/edit`}>Edit</Link>
+                <Link to={`/offers/${this.offerID}/delete`}>Delete</Link>
             </div>
         );
     }
@@ -50,6 +50,8 @@ export default class OfferDetails extends React.Component {
             isOwner = this.props.user._id === this.state.publisher ? true : false;
         }
 
+        //We need to make sure that each kind of profile only sees the right options
+        //i.e., a seeker must not be able to edit an offer or a company must not apply to offers.
         let optionToRender =  () => {
             if(isUserLoggedIn && isUserCompany && isOwner) {
                 return <this.CompanyOptions />
