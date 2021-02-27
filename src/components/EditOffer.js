@@ -11,29 +11,31 @@ export default class EditOffer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
-
         this.service = new AuthService();
     }
 
     componentDidMount() {
-
         console.log(this.props)
-    //     this.service.getOfferDetails(this.props.match.params)
-    //     .then(response => {
-    //         const offerFromDB = response.data
-    //         this.setState(offerFromDB)
-    //     })
-    //     .catch(error => console.log(error))
-    // }
-
+        this.service.getOfferDetails(this.props.parentProps.match.params.offerID)
+        .then(response => {
+            const offerFromDB = response.data
+            this.setState({...offerFromDB, salaryFrom: offerFromDB.salary.from, salaryTo: offerFromDB.salary.to}, () => console.log(this.state))
+        })
+        .catch(error => console.log(error))
     }
 
 
     handleFormSubmit(event){
         event.preventDefault();
-        let {offerID } = this.props.match.params
-
-        this.service.editOffer(offerID, this.state)
+        console.log(this.state)
+        let {title, description, stack, currency} = this.state;
+        let salary = {
+            from: this.state.salaryFrom,
+            to: this.state.salaryTo
+        }
+        let updateBody = {title, description, stack, currency, salary}
+        console.log(updateBody)
+        this.service.editOffer(this.props.parentProps.match.params.offerID, updateBody)
         .then(response => response)
         .catch(error => error)
     }
@@ -48,7 +50,7 @@ export default class EditOffer extends React.Component {
     EditForm = (props) => {
         
         if (props.userInSession) {
-            if (props.userInSession.kind === 'Seeker' || (props.userInSession !== this.state.publisher ) ) {
+            if (props.userInSession.kind === 'Seeker' || (props.userInSession._id !== this.state.publisher ) ) {
                 return (
                     <div>
                         <p>Only the publisher of this offer can access to this section.</p>
@@ -61,12 +63,12 @@ export default class EditOffer extends React.Component {
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridTitle">
                             <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" placeholder='A catchy title' onChange={e => this.handleChange(e)} name="title" />
+                            <Form.Control type="text" value={this.state.title} onChange={e => this.handleChange(e)} name="title" />
                         </Form.Group>
     
                         <Form.Group as={Col} controlId="formGridLastDescription">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control type="text" placeholder='Keep it short ;)' onChange={e => this.handleChange(e)} name="description" />
+                            <Form.Control type="text" value={this.state.description} onChange={e => this.handleChange(e)} name="description" />
                         </Form.Group>
                     </Form.Row>
     
@@ -75,10 +77,10 @@ export default class EditOffer extends React.Component {
                             <Form.Label>Stack</Form.Label>
                             <br />
                             <Form.Label>Required Technologies</Form.Label>
-                            <Form.Control type="text" placeholder='e.g., JavaScript, NodeJS, Python, Django' onChange={e => this.handleChange(e)} name="stack" />
+                            <Form.Control type="text" value={this.state.stack} onChange={e => this.handleChange(e)} name="stack" />
                             <p>Note: Please, keep it short. Add only the top ones. Let's face it, if you really need a HUGE stack, you might not be looking for a developer but for a whole team.</p>
                             <Form.Label>Minimum Experience (years): </Form.Label>
-                            <Form.Control type="number" placeholder='0' onChange={e => this.handleChange(e)} name="stack" />
+                            <Form.Control type="number" value={this.state.requiredExperience} onChange={e => this.handleChange(e)} name="requiredExperience" />
                             <p>Note: Please, be realistic. Do you really need someone with that much of experience?</p>
                         </Form.Group>
                     </Form.Row>
@@ -87,11 +89,11 @@ export default class EditOffer extends React.Component {
                         <Form.Label>Salary</Form.Label>
                         <br />
                         <Form.Label>From</Form.Label>
-                        <Form.Control type='number' placeholder='e.g., 35000' onChange={e => this.handleChange(e)} name="salary.from" />
+                        <Form.Control type='number' value={this.state.salary.from} onChange={e => this.handleChange(e)} name="salary.from" />
                         <Form.Label>To</Form.Label>
-                        <Form.Control type='number' placeholder='e.g., 45000' onChange={e => this.handleChange(e)} name="salary.to" />
+                        <Form.Control type='number' value={this.state.salary.to} onChange={e => this.handleChange(e)} name="salary.to" />
                         <Form.Label>Currency</Form.Label>
-                        <Form.Control as="select" name='currency' onChange={e => this.handleChange(e)} custom>
+                        <Form.Control as="select" value={this.state.currency} name='currency' onChange={e => this.handleChange(e)} custom>
                             <option>EUR</option>
                             <option>USD</option>
                             <option>GBP</option>
@@ -116,6 +118,7 @@ export default class EditOffer extends React.Component {
     render() {
         return (
             <div>
+                jelou
                 <this.EditForm userInSession = {this.props.userInSession}/>
             </div>
         )

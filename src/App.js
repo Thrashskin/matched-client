@@ -68,7 +68,7 @@ render() {
         {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
         <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList}/>
         <Route exact path="/offers/:offerID" render = { props => <OfferDetails parentProps = {props} user = {this.state.userInSession}/>} />
-        <Route exact path="/offers/:offerID/edit" render = { props => <EditOffer parentProps = {props} user = {this.state.userInSession}/>} />
+        <Route exact path="/offers/:offerID/edit" render = { props => <EditOffer parentProps = {props} userInSession = {this.state.userInSession}/>} />
         <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer}/>
       </Switch>
     </div>

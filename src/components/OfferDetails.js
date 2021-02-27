@@ -13,10 +13,12 @@ export default class OfferDetails extends React.Component {
 
     componentDidMount() {
         //let {offerID} = this.props.parentProps.match.params;
+        console.log(this.offerID)
         this.service.getOfferDetails(this.offerID)
         .then(response => {
             let offerDetails = response.data
-            this.setState(offerDetails)
+            console.log(offerDetails)
+            this.setState(offerDetails, () => console.log(offerDetails))
         })
     }
 

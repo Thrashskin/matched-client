@@ -80,7 +80,7 @@ export default class AddOffer extends React.Component {
                         <Form.Control type="text" placeholder='e.g., JavaScript, NodeJS, Python, Django' onChange={e => this.handleChange(e)} name="stack" />
                         <p>Note: Please, keep it short. Add only the top ones. Let's face it, if you really need a HUGE stack, you might not be looking for a developer but for a whole team.</p>
                         <Form.Label>Minimum Experience (years): </Form.Label>
-                        <Form.Control type="number" placeholder='0' onChange={e => this.handleChange(e)} name="stack" />
+                        <Form.Control type="number" placeholder='0' onChange={e => this.handleChange(e)} name="requiredExperience" />
                         <p>Note: Please, be realistic. Do you really need someone with that much of experience?</p>
                     </Form.Group>
                 </Form.Row>
