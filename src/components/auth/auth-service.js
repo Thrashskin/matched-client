@@ -58,7 +58,13 @@ class AuthService {
         return this.service.put(`/offer/${offerID}`, editedOffer)
         .then(response => response)
         .catch(error => error)
-    }      
+    } 
+    
+    deleteOffer = (offerID) => {
+        return this.service.delete(`/offer/${offerID}`)
+        .then(response => response)
+        .catch(error => error)
+    }
 }
 
 export default AuthService;

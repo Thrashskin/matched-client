@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import AuthService from './auth/auth-service';
+import Button from 'react-bootstrap/Button'
 
 export default class OfferDetails extends React.Component {
 
@@ -25,17 +26,25 @@ export default class OfferDetails extends React.Component {
     SeekerOptions = () => {
         return (
             <div>
-                <Link to='/applyTest'>Apply</Link>
-                <Link to='/saveTest'>Save for later</Link>
+                <Button><Link to='/applyTest'>Apply</Link></Button>
+                <Button><Link to='/saveTest'>Save for later</Link></Button>
             </div>
         );
+    }
+
+    deleteOffer = () => {
+
+        this.service.deleteOffer(this.offerID)
+        .then(response => console.log(response))
+        .catch(error => error)
+        
     }
 
     CompanyOptions = () => {
         return (
             <div>
-                <Link to={`/offers/${this.offerID}/edit`}>Edit</Link>
-                <Link to={`/offers/${this.offerID}/delete`}>Delete</Link>
+                <Button><Link to={`/offers/${this.offerID}/edit`}>Edit</Link></Button>
+                <Button onClick = {this.deleteOffer()}><Link to={`/offers`}>Delete</Link></Button>
             </div>
         );
     }
@@ -70,6 +79,9 @@ export default class OfferDetails extends React.Component {
               <br />
               <p>Description:</p>
               <p>{this.state.description}</p>
+              <br />
+              <p>Minimum Experience:</p>
+              <p>{this.state.requiredExperience} years</p>
               <br />
               <p>Stack: </p>
               <p>{this.state.stack}</p>
