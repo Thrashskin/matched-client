@@ -25,8 +25,15 @@ class App extends React.Component {
   constructor() {
    super()
     this.state = {
-      userInSession: null
+      userInSession: JSON.parse(localStorage.getItem('user'))
    }
+}
+
+componentDidMount() {
+  const userInSession = localStorage.getItem('user')
+  this.setState({
+    userInSession: JSON.parse(userInSession)
+  })
 }
 
 setUserInSession = userObject => {

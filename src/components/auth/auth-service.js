@@ -84,6 +84,24 @@ class AuthService {
         })
         .catch(error => error)
     }
+
+    applyToOffer = (offerID) => {
+        return this.service.put(`/offer/${offerID}/apply`)
+        .then(response => {
+            console.log(response)
+            return response
+        })
+        .catch(error => error)
+    }
+
+    saveOffer = (offerID) => {
+        return this.service.put(`/offer/${offerID}/save`)
+        .then(response => {
+            console.log(response)
+            return response
+        })
+        .catch(error => error)
+    }
 }
 
 export default AuthService;
