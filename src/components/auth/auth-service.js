@@ -57,7 +57,10 @@ class AuthService {
 
     getOfferDetails = (offerID) => {
         return this.service.get(`offer/${offerID}`)
-        .then(response => response)
+        .then(response => {
+            console.log(response)
+            return response
+        })
         .catch(error => error)
     }
 
@@ -69,7 +72,10 @@ class AuthService {
     
     deleteOffer = (offerID) => {
         return this.service.delete(`/offer/${offerID}`)
-        .then(response => response)
+        .then(response => {
+            console.log(response)
+            return response
+        })
         .catch(error => error)
     }
 }

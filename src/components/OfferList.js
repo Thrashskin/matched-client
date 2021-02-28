@@ -1,6 +1,6 @@
-import React from 'react'
-import {Link} from 'react-router-dom'
-import AuthService from './auth/auth-service'
+import React from 'react';
+import {Link} from 'react-router-dom';
+import AuthService from './auth/auth-service';
 
 export default class OfferList extends React.Component {
 
@@ -22,9 +22,7 @@ export default class OfferList extends React.Component {
         })
         .catch(error => console.log(error));
     }
-
     
-
     render() {
 
         let offersToRender = this.state.offers.map( (offer, index) => {

@@ -32,22 +32,22 @@ export default class AddOffer extends React.Component {
             stack: stackNew,
             currency: this.state.currency,
             requiredExperience: this.state.requiredExperience,
-            salary:{
-                from:this.state.salaryFrom,
+            salary: {
+                from: this.state.salaryFrom,
                 to: this.state.salaryTo
             }
         }
 
         this.service.createOffer(offerBody)
-        .then(response => console.log(response))
-        .catch(error => console.log(error.response));
+            .then(response => console.log(response))
+            .catch(error => console.log(error.response));
 
         // axios.post('http://localhost:5000/api/offer', offerBody)
         // .then( response =>  console.log(response))
         // .catch(error => console.log(error));
 
         //console.log(offerBody)
-        
+
     }
 
     handleChange(event) {
@@ -89,9 +89,9 @@ export default class AddOffer extends React.Component {
                     <Form.Label>Salary</Form.Label>
                     <br />
                     <Form.Label>From</Form.Label>
-                    <Form.Control type='number' placeholder='e.g., 35000' onChange={e => this.handleChange(e)} name="salary.from" />
+                    <Form.Control type='number' placeholder='e.g., 35000' onChange={e => this.handleChange(e)} name="salaryFrom" />
                     <Form.Label>To</Form.Label>
-                    <Form.Control type='number' placeholder='e.g., 45000' onChange={e => this.handleChange(e)} name="salary.to" />
+                    <Form.Control type='number' placeholder='e.g., 45000' onChange={e => this.handleChange(e)} name="salaryTo" />
                     <Form.Label>Currency</Form.Label>
                     <Form.Control as="select" name='currency' onChange={e => this.handleChange(e)} custom>
                         <option>EUR</option>

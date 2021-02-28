@@ -10,6 +10,8 @@ export default class OfferDetails extends React.Component {
         this.state = {}
         this.service = new AuthService();
         this.offerID = this.props.parentProps.match.params.offerID;
+
+        console.log(this.offerID)
     }
 
     componentDidMount() {
@@ -34,6 +36,8 @@ export default class OfferDetails extends React.Component {
 
     deleteOffer = () => {
 
+        console.log('deleteOffer')
+
         this.service.deleteOffer(this.offerID)
         .then(response => console.log(response))
         .catch(error => error)
@@ -44,7 +48,10 @@ export default class OfferDetails extends React.Component {
         return (
             <div>
                 <Button><Link to={`/offers/${this.offerID}/edit`}>Edit</Link></Button>
-                <Button onClick = {this.deleteOffer()}><Link to={`/offers`}>Delete</Link></Button>
+                
+                <Button onClick = {() => this.deleteOffer()}>
+                    <Link to={`/offers`}>Delete</Link>
+                </Button>
             </div>
         );
     }
