@@ -36,6 +36,12 @@ class AuthService {
         })
     }
 
+    getProfile = (userKind, userID) => {
+        return this.service.get(`/${userKind}/${userID}`)
+        .then(response => response.data)
+        .catch(error => console.log(error))
+    }
+
     editProfile = (userKind, userID, updatedProfile) => {
         
         return this.service.put(`/${userKind}/${userID}`, updatedProfile)
