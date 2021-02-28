@@ -12,6 +12,7 @@ export default class Logout extends React.Component {
     logOut = () => {
         this.service.logout()
         .then(() => {
+            localStorage.clear();
             this.props.logUserOut();
         })
         .catch(error => console.log(error))

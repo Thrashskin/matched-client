@@ -25,11 +25,28 @@ export default class OfferDetails extends React.Component {
         })
     }
 
+    applyToOffer = () => {
+        console.log('i want this job')
+        this.service.applyToOffer(this.offerID)
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
+    }
+
+    saveOffer = () => {
+        console.log('save this job')
+        this.service.saveOffer(this.offerID)
+        .then(response => console.log(response))
+        .catch(error => console.log(error))
+    }
+
+
+
+
     SeekerOptions = () => {
         return (
             <div>
-                <Button><Link to='/applyTest'>Apply</Link></Button>
-                <Button><Link to='/saveTest'>Save for later</Link></Button>
+                <Button onClick={() => this.applyToOffer()}><Link to='#'>Apply</Link></Button>
+                <Button onClick={() => this.saveOffer()}><Link to='#'>Save for later</Link></Button>
             </div>
         );
     }
@@ -43,6 +60,8 @@ export default class OfferDetails extends React.Component {
         .catch(error => error)
         
     }
+
+
 
     CompanyOptions = () => {
         return (

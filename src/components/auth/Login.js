@@ -32,6 +32,10 @@ export default class Login extends React.Component {
 
     this.service.login(email, password)
     .then(response => {
+
+      
+      localStorage.setItem('user', JSON.stringify(response))
+      console.log(response)
       
       this.setState({
         email: '',
@@ -49,8 +53,7 @@ export default class Login extends React.Component {
 
     render(){
         return(
-          <div>
-              LOGIN FORM   
+          <div>   
             <form onSubmit={ e => this.handleFormSubmit(e)}>
               <label>Email:</label>
               <input type="text" name="email" value={this.state.email} onChange={ e => this.handleChange(e)}/>
