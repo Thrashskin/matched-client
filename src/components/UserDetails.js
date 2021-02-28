@@ -29,7 +29,7 @@ export default class UserDetails extends React.Component {
     // }
 
     
-    render() {
+     render() {
 
         // return (
         //     <p>Hola</p>
