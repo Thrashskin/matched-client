@@ -1,8 +1,8 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
-import axios from 'axios'
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import AuthService from './auth/auth-service';
 
 export default class EditProfile extends React.Component {
 
@@ -31,15 +31,18 @@ export default class EditProfile extends React.Component {
                 }
             }
         }
+
+        this.service = new AuthService();
     }
 
     handleFormSubmit(event) {
         event.preventDefault();
-        let user = this.props.userInSession.kind === 'Seeker' ? 'seeker' : 'company'
+        let userKind = this.props.userInSession.kind === 'Seeker' ? 'seeker' : 'company'
         let {_id } = this.props.userInSession
-        axios.put(`http://localhost:5000/api/${user}/${_id}`, this.state)
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
+
+        this.service.editProfile(userKind, _id, this.state)
+        .then(response => response)
+        .catch(error => error)
     }
 
     handleChange(event) {
