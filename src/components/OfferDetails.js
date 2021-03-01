@@ -26,14 +26,12 @@ export default class OfferDetails extends React.Component {
     }
 
     applyToOffer = () => {
-        console.log('i want this job')
         this.service.applyToOffer(this.offerID)
         .then(response => console.log(response))
-        .catch(error => console.log(error))
+        .catch(error => console.log(error.response.data))
     }
 
     saveOffer = () => {
-        console.log('save this job')
         this.service.saveOffer(this.offerID)
         .then(response => console.log(response))
         .catch(error => console.log(error))
