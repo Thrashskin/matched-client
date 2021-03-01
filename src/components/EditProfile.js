@@ -11,13 +11,14 @@ export default class EditProfile extends React.Component {
 
         if (this.props.userInSession) {
             if (this.props.userInSession.kind === 'Seeker') {
-                const {name, lastName, city, country, email, gitHub, linkedIn} = this.props.userInSession;
+                const {name, lastName, city, country, email, stack, gitHub, linkedIn} = this.props.userInSession;
                 this.state = {
                     name: name,
                     lastName: lastName,
                     city: city,
                     country: country,
                     email: email,
+                    stack: stack,
                     gitHub: gitHub,
                     linkedIn: linkedIn,
                 }
@@ -39,8 +40,11 @@ export default class EditProfile extends React.Component {
         event.preventDefault();
         let userKind = this.props.userInSession.kind === 'Seeker' ? 'seeker' : 'company'
         let {_id } = this.props.userInSession
+        let {name, lastName, city, country, email, gitHub, linkedIn} = this.state;
+        let stack = this.state.stack.split(" ").join("").split(",");
+        let updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
 
-        this.service.editProfile(userKind, _id, this.state)
+        this.service.editProfile(userKind, _id, updatedProfile)
         .then(response => response)
         .catch(error => error)
     }
@@ -83,6 +87,13 @@ export default class EditProfile extends React.Component {
                         <Form.Label>Country</Form.Label>
                         <Form.Control value={this.state.country} onChange={ e => this.handleChange(e)} name="country"/>
                     </Form.Group>
+
+                    <Form.Row>
+                            <Form.Group as={Col} controlId="formGridStack">
+                                <Form.Label>My Tech-Stack</Form.Label>
+                                <Form.Control type="text" value={this.state.stack} placeholder="e.g., JavaScript, Python, Java, NodeJS..." onChange={e => this.handleChange(e)} name="stack" />
+                            </Form.Group>
+                        </Form.Row>
 
                     <Form.Row>
                         <Form.Group as={Col} controlId="formGridLinkedIn">
