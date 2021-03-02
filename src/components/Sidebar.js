@@ -16,6 +16,8 @@ export default class Sidebar extends React.Component {
                 <Link to="/offers/add-offer">New Offer</Link>
                 <br/>
                 <Link to="/offers">My Offers</Link>
+                <Link to="/applications">My Applications</Link>
+                <Link to="/saved">My Saved Offers</Link>
                 </Nav>
                 {/* <Form inline>
                 </Form> */}

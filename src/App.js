@@ -74,6 +74,8 @@ render() {
         <Route exact path="/profile/edit" render={ () =>  <EditProfile userInSession={this.state.userInSession} /> }/> {/*NEEDS PROTECTION*/}
         {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
         <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList}/>
+        <ProtectedRoute exact path="/applications" user={this.state.userInSession} component={OfferList}/>
+        <ProtectedRoute exact path="/saved" user={this.state.userInSession} component={OfferList}/>
         <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer}/>
         <Route exact path="/offers/:offerID" render = { props => <OfferDetails parentProps = {props} user = {this.state.userInSession}/>} />
         <Route exact path="/offers/:offerID/edit" render = { props => <EditOffer parentProps = {props} userInSession = {this.state.userInSession}/>} />
