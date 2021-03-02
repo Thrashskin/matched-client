@@ -61,6 +61,19 @@ class AuthService {
         .catch(error => error)
     }
 
+    getApplications = (seekerID) => { 
+        return this.service.get(`/${seekerID}/applications`)
+        .then(response => response)
+        .catch(error => error)
+    }
+
+
+    getSavedOffers = (seekerID) => { //MAYBE this one doesn't need to be done through the service.
+        return this.service.get(`/${seekerID}/saved`)
+        .then(response => response)
+        .catch(error => error)
+    }
+   
     getOfferDetails = (offerID) => {
         return this.service.get(`offer/${offerID}`)
         .then(response => {
