@@ -52,13 +52,6 @@ export default class OfferDetails extends React.Component {
             );
 
         }
-
-        // return (
-        //     <div>
-        //         <Button onClick={() => this.applyToOffer()}><Link to='#'>Apply</Link></Button>
-        //         <Button onClick={() => this.saveOffer()}><Link to='#'>Save for later</Link></Button>
-        //     </div>
-        // );
     }
 
     deleteOffer = () => {
