@@ -19,14 +19,26 @@ export default class OfferSwiper extends React.Component {
 
     componentDidMount() {
 
-        this.service.getAllOffers()
-            .then(response => {
-                console.log(response.data)
-                this.setState({
-                    offersToShow: response.data
+        if (this.props.userInSession) {
+            this.service.getAllOffers()
+                .then(response => {
+                    let filteredOffers = response.data.filter(offer => {
+                        let notApplied = this.props.userInSession.offers.includes(offer._id) ? false : true
+                        let notSaved = this.props.userInSession.saved.includes(offer._id) ? false : true
+                        let notRejected = this.props.userInSession.rejected.includes(offer._id) ? false : true
+
+                        if (notApplied && notSaved && notRejected) {
+                            return offer
+                        } else {
+                            return null
+                        }
+                    })
+                    this.setState({
+                        offersToShow: filteredOffers
+                    })
                 })
-            })
-            .catch(error => console.log(error))
+                .catch(error => console.log(error))
+        }
     }
 
     removeFromArray = (offerID) => {
