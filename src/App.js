@@ -17,7 +17,9 @@ import ProtectedRoute from './components/auth/protected-route'
 import OfferList from './components/OfferList';
 import OfferDetails from './components/OfferDetails';
 import EditOffer from './components/EditOffer';
+import OfferSwiper from './components/OfferSwiper';
 
+//Styles
 
 
 class App extends React.Component {
@@ -65,6 +67,8 @@ render() {
           Already have an account? <Link to='/login'>Login</Link>
         </p>
         <Logout logUserOut = { () => this.logOutUser() }/>
+        <br/>
+        <OfferSwiper userInSession={this.state.userInSession}/>
         
       </header>
       <Switch>

@@ -61,6 +61,12 @@ class AuthService {
         .catch(error => error)
     }
 
+    getAllOffers = () => {
+        return this.service.get('/offers/all')
+        .then(response => response)
+        .catch(error => error)
+    }
+
     getApplications = (seekerID) => { 
         return this.service.get(`/${seekerID}/applications`)
         .then(response => response)
