@@ -35,30 +35,30 @@ export default class Offer extends React.Component {
 
     handleReject = () => {
         console.log('reject')
-        this.service.rejectOffer(this.state._id)
+        this.service.rejectOffer(this.state.currentOffer._id)
             .then(response => {
                 console.log(response)
-                this.props.removeFromArray(this.state._id);
+                this.props.removeFromArray(this.state.currentOffer._id);
             })
             .catch(error => console.log(error))
     }
 
     handleSave = () => {
         console.log('save')
-        this.service.saveOffer(this.state._id)
+        this.service.saveOffer(this.state.currentOffer._id)
             .then(response => {
                 console.log(response)
-                this.props.removeFromArray(this.state._id);
+                this.props.removeFromArray(this.state.currentOffer._id);
             })
             .catch(error => console.log(error))
     }
 
     handleApply = () => {
         console.log('apply')
-        this.service.applyToOffer(this.state._id)
+        this.service.applyToOffer(this.state.currentOffer._id)
             .then(response => {
                 console.log(response)
-                this.props.removeFromArray(this.state._id);
+                this.props.removeFromArray(this.state.currentOffer._id);
             })
             .catch(error => console.log(error))
     }

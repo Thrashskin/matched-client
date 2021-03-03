@@ -46,7 +46,7 @@ export default class OfferSwiper extends React.Component {
                 console.log(this.state.offersToShow[0])
                 return (
                     <div className="OfferSwiper">
-                        <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} />
+                        <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} removeFromArray = {this.removeFromArray}/>
                     </div>
                 );
             } else {
