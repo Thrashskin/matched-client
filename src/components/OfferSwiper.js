@@ -41,22 +41,23 @@ export default class OfferSwiper extends React.Component {
     render() {
         //console.log(this.props)
 
-        if (this.props.userInSession && this.props.userInSession.kind === 'Seeker') {
-            if (this.state.offersToShow.length > 0) {
-                console.log(this.state.offersToShow[0])
-                return (
-                    <div className="OfferSwiper">
-                        <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} removeFromArray = {this.removeFromArray}/>
-                    </div>
-                );
-            } else {
-                return <p>Sorry, there are no offers matching your current prefferences =(</p>
-            }
+        if (this.props.userInSession) {
 
-        } else {
-            return null
+            if (this.props.userInSession.kind === 'Seeker') {
+
+                if (this.state.offersToShow.length > 0) {
+                    console.log(this.state.offersToShow[0])
+                    return (
+                        <div className="OfferSwiper">
+                            <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} removeFromArray={this.removeFromArray} />
+                        </div>
+                    );
+                } else {
+                    return <p>Sorry, there are no offers matching your current prefferences =(</p>
+                }
+            } else {
+                return null
+            }
         }
     }
 }
-
-

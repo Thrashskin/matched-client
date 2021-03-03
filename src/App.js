@@ -27,7 +27,7 @@ class App extends React.Component {
   constructor() {
    super()
     this.state = {
-      userInSession: JSON.parse(localStorage.getItem('user'))
+      userInSession: null //JSON.parse(localStorage.getItem('user'))
    }
 }
 
@@ -68,7 +68,8 @@ render() {
         </p>
         <Logout logUserOut = { () => this.logOutUser() }/>
         <br/>
-        <OfferSwiper userInSession={this.state.userInSession}/>
+        {this.state.userInSession ? <OfferSwiper userInSession={this.state.userInSession}/> : null}
+        
         
       </header>
       <Switch>

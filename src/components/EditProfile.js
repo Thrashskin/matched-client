@@ -41,7 +41,9 @@ export default class EditProfile extends React.Component {
         let userKind = this.props.userInSession.kind === 'Seeker' ? 'seeker' : 'company'
         let {_id } = this.props.userInSession
         let {name, lastName, city, country, email, gitHub, linkedIn} = this.state;
-        let stack = this.state.stack.split(" ").join("").split(",");
+
+        let stack = this.state.stack.includes(" ") ? this.state.stack.split(" ").join("").split(",") : this.state.stack.split(",")
+
         let updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
 
         this.service.editProfile(userKind, _id, updatedProfile)

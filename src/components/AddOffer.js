@@ -12,7 +12,9 @@ export default class AddOffer extends React.Component {
             title: '',
             description: '',
             stack: '',
-            currency: '',
+            city: '',
+            country: '',
+            currency: 'EUR',
             requiredExperience: '',
             salaryFrom: 0,
             salaryTo: 0
@@ -30,6 +32,8 @@ export default class AddOffer extends React.Component {
             title: this.state.title,
             description: this.state.description,
             stack: stackNew,
+            city: this.state.city,
+            country: this.state.country,
             currency: this.state.currency,
             requiredExperience: this.state.requiredExperience,
             salary: {
@@ -66,9 +70,20 @@ export default class AddOffer extends React.Component {
                         <Form.Control type="text" placeholder='A catchy title' onChange={e => this.handleChange(e)} name="title" />
                     </Form.Group>
 
-                    <Form.Group as={Col} controlId="formGridLastDescription">
+                    <Form.Group as={Col} controlId="formGridDescription">
                         <Form.Label>Description</Form.Label>
                         <Form.Control type="text" placeholder='Keep it short ;)' onChange={e => this.handleChange(e)} name="description" />
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group as={Col} controlId="formGridCity">
+                        <Form.Label>City</Form.Label>
+                        <Form.Control type="text" placeholder='e.g., Madrid' onChange={e => this.handleChange(e)} name="city" />
+                    </Form.Group>
+
+                    <Form.Group as={Col} controlId="formGridCountry">
+                        <Form.Label>Country</Form.Label>
+                        <Form.Control type="text" placeholder='e.g., Spain' onChange={e => this.handleChange(e)} name="country" />
                     </Form.Group>
                 </Form.Row>
 
