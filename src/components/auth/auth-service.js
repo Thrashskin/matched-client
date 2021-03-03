@@ -115,6 +115,15 @@ class AuthService {
         })
         .catch(error => error)
     }
+
+    rejectOffer = (offerID) => {
+        return this.service.put(`/offer/${offerID}/reject`)
+        .then(response => {
+            console.log(response)
+            return response
+        })
+        .catch(error => error)
+    }
 }
 
 export default AuthService;

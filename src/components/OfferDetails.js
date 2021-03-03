@@ -40,7 +40,7 @@ export default class OfferDetails extends React.Component {
     SeekerOptions = () => {
 
         if (this.props.user.offers.includes(this.offerID)) {
-            return null
+            return <p>You already applied to this offer ;)</p>
         } else if (this.props.user.saved.includes(this.offerID) && !this.props.user.offers.includes(this.offerID)) {
             return <Button onClick={() => this.applyToOffer()}><Link to='#'>Apply</Link></Button>
         } else {
