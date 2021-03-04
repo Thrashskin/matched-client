@@ -20,6 +20,7 @@ export default class AddOffer extends React.Component {
             salaryTo: 0
         }
 
+        this.parentProps = props;
         this.service = new AuthService();
 
     }
@@ -43,7 +44,10 @@ export default class AddOffer extends React.Component {
         }
 
         this.service.createOffer(offerBody)
-            .then(response => console.log(response))
+            .then(response => {
+                console.log(response)
+                this.parentProps.history.push('/offers')
+            })
             .catch(error => console.log(error.response));
 
         // axios.post('http://localhost:5000/api/offer', offerBody)

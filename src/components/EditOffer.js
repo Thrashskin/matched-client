@@ -38,13 +38,15 @@ export default class EditOffer extends React.Component {
         this.service.editOffer(this.props.parentProps.match.params.offerID, updateBody)
             .then(response => {
                 console.log(response)
-                return (
-                    <Route render={
-                        props => {
-                            return <Redirect to={{ pathname: '/offers', state: { from: this.props.location } }} />
-                        }
-                    } />
-                )
+                // return (
+                //     <Route render={
+                //         props => {
+                //             return <Redirect to={{ pathname: '/offers', state: { from: this.props.location } }} />
+                //         }
+                //     } />
+                // )
+                //this.props.history.push('/offers')
+                this.props.parentProps.history.push('/offers')
             })
             .catch(error => error)
     }
@@ -127,7 +129,7 @@ export default class EditOffer extends React.Component {
     render() {
         return (
             <div>
-                jelou
+                
                 <this.EditForm userInSession={this.props.userInSession} />
             </div>
         )

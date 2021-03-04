@@ -18,6 +18,7 @@ import OfferList from './components/OfferList';
 import OfferDetails from './components/OfferDetails';
 import EditOffer from './components/EditOffer';
 import OfferSwiper from './components/OfferSwiper';
+import Chat from './components/Chat'
 
 //Styles
 
@@ -76,21 +77,21 @@ render() {
         <Route exact path="/signup" render={ () =>  <Signup setUser={this.setUserInSession} /> }/>
         <Route exact path="/login" render={ () =>  <Login setUser={this.setUserInSession} /> }/>
         <Route exact path="/profile" render={ () =>  <Profile userInSession={this.state.userInSession} /> }/>
-        <Route exact path="/profile/edit" render={ () =>  <EditProfile userInSession={this.state.userInSession} /> }/> {/*NEEDS PROTECTION*/}
+        <Route exact path="/profile/edit" render={ props =>  <EditProfile parentProps = {props} userInSession={this.state.userInSession} /> }/> {/*NEEDS PROTECTION*/}
         {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
         <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList}/>
         <ProtectedRoute exact path="/applications" user={this.state.userInSession} component={OfferList}/>
         <ProtectedRoute exact path="/saved" user={this.state.userInSession} component={OfferList}/>
-        <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer}/>
+        <ProtectedRoute exact path="/offers/add-offer"  user={this.state.userInSession} component={AddOffer}/>
+        {/* <ProtectedRoute exact path="/offers/add-offer" render = { props => <AddOffer parentProps = {props} userInSession = {this.state.userInSession}/>} /> */}
         <Route exact path="/offers/:offerID" render = { props => <OfferDetails parentProps = {props} user = {this.state.userInSession}/>} />
         <Route exact path="/offers/:offerID/edit" render = { props => <EditOffer parentProps = {props} userInSession = {this.state.userInSession}/>} />
+        <Route exact path="/chats/:chatID" render = { props => <Chat parentProps = {props} userInSession = {this.state.userInSession}/>} />
         
       </Switch>
     </div>
   );
 }
-
-
 }
 
 export default App;
