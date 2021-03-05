@@ -33,7 +33,7 @@ export default class OfferList extends React.Component {
                     })
                 })
                 .catch(error => console.log(error));
-        } else if (this.path.includes('saved')) { 
+        } else if (this.path.includes('saved')) {
 
             this.service.getSavedOffers(this.props.loggedInUser._id)
                 .then(response => {
@@ -45,12 +45,21 @@ export default class OfferList extends React.Component {
         }
     }
 
+    renderCandidates = (offer) => {
+        if (this.props.loggedInUser) {
+            if (this.props.loggedInUser.kind === 'Company') {
+                return <p>{`Candidates: ${offer.candidates.length}`}</p>
+            }
+        }
+    }
+
     render() {
 
         const offersToRender = this.state.offers.map((offer, index) => {
             return (<li key={index}>
                 <Link to={`/offers/${offer._id}`}><h5>{offer.title}</h5></Link>
                 <p>{offer.stack}</p>
+                {this.renderCandidates(offer)}
             </li>)
         })
 
@@ -59,9 +68,9 @@ export default class OfferList extends React.Component {
                 return <p>You haven't published any offer yet. Do you want to <Link to='offers/add-offer'>public one?</Link></p>
             } else if (this.path.includes('applications')) {
                 return <p>You haven't applied to any offer yet</p>
-            } else if (this.path.includes('saved')) { 
+            } else if (this.path.includes('saved')) {
                 return <p>You haven't saved any offer yet</p>
-            } 
+            }
         }
 
         return (
@@ -70,7 +79,7 @@ export default class OfferList extends React.Component {
                     {[offersToRender]}
                 </ul>
                 :
-                <MessageToRender/>
+                <MessageToRender />
         )
     }
 }

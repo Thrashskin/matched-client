@@ -7,13 +7,12 @@ export default class UserDetails extends React.Component {
         super(props);
 
         this.state = {
-            userInSession: this.props.userInSession
+            user: this.props.user
         }
 
         this.service = new AuthService();
-        this.kind = this.state.userInSession.kind
-        this._id = this.state.userInSession._id
-
+        this.kind = this.state.user.kind
+        this._id = this.state.user._id
     }
 
     async componentDidMount() {
@@ -31,28 +30,24 @@ export default class UserDetails extends React.Component {
     
      render() {
 
-        // return (
-        //     <p>Hola</p>
-        // )
-
-        if (this.state.userInSession.kind === 'Seeker') {
+        if (this.state.user.kind === 'Seeker') {
         
             let techStack = []
     
-            if (this.state.userInSession.stack) {
-                techStack = [this.state.userInSession.stack.map((technology, index) => {
+            if (this.state.user.stack) {
+                techStack = [this.state.user.stack.map((technology, index) => {
                     return <li key={index}>{technology}</li>
                 })]
             }
     
             return (
                 <div>
-                    <h1>{`${this.state.userInSession.name} ${this.state.userInSession.lastName}`}</h1>
-                    <p>Location: {`${this.state.userInSession.city}, ${this.state.userInSession.country}`}</p>
-                    <p>LinkedIn: {this.state.userInSession.linkedIn}</p>
-                    <p>gitHub: {this.state.userInSession.gitHub}</p>
+                    <h1>{`${this.state.user.name} ${this.state.user.lastName}`}</h1>
+                    <p>Location: {`${this.state.user.city}, ${this.state.user.country}`}</p>
+                    <p>LinkedIn: {this.state.user.linkedIn}</p>
+                    <p>gitHub: {this.state.user.gitHub}</p>
                     {
-                        (this.state.userInSession.stack) ? 
+                        (this.state.user.stack) ? 
                         <div>
                             <p>Technologies:</p>
                             <br />
@@ -70,8 +65,9 @@ export default class UserDetails extends React.Component {
     
             return (
                 <div>
-                    <h1>{this.state.userInSession.name}</h1>
-                    <p>Location: {`${this.state.userInSession.city}, ${this.state.userInSession.country}`}</p>
+                    <h1>{this.state.user.name}</h1>
+                    <p>Location: {`${this.state.user.city}, ${this.state.user.country}`}</p>
+                    <p>{`${this.state.user.description}`}</p>
                 </div>
             );
         }

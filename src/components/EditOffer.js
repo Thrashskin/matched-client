@@ -1,9 +1,9 @@
 import React from 'react';
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
-import { Link, Redirect, Route } from 'react-router-dom'
-import AuthService from './auth/auth-service'
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Button from 'react-bootstrap/Button';
+import { Link } from 'react-router-dom';
+import AuthService from './auth/auth-service';
 
 
 export default class EditOffer extends React.Component {

@@ -18,7 +18,9 @@ import OfferList from './components/OfferList';
 import OfferDetails from './components/OfferDetails';
 import EditOffer from './components/EditOffer';
 import OfferSwiper from './components/OfferSwiper';
-import Chat from './components/Chat'
+import Chat from './components/Chat';
+import CandidatesList from './components/CandidatesList';
+import PublicProfile from './components/PublicProfile';
 
 //Styles
 
@@ -82,11 +84,13 @@ render() {
         <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList}/>
         <ProtectedRoute exact path="/applications" user={this.state.userInSession} component={OfferList}/>
         <ProtectedRoute exact path="/saved" user={this.state.userInSession} component={OfferList}/>
-        <ProtectedRoute exact path="/offers/add-offer"  user={this.state.userInSession} component={AddOffer}/>
+        <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer}/>
         {/* <ProtectedRoute exact path="/offers/add-offer" render = { props => <AddOffer parentProps = {props} userInSession = {this.state.userInSession}/>} /> */}
         <Route exact path="/offers/:offerID" render = { props => <OfferDetails parentProps = {props} user = {this.state.userInSession}/>} />
         <Route exact path="/offers/:offerID/edit" render = { props => <EditOffer parentProps = {props} userInSession = {this.state.userInSession}/>} />
+        <Route exact path="/offers/:offerID/candidates" render = { props => <CandidatesList parentProps = {props} userInSession = {this.state.userInSession}/>} />
         <Route exact path="/chats/:chatID" render = { props => <Chat parentProps = {props} userInSession = {this.state.userInSession}/>} />
+        <Route exact path="/:userType/:userID" render={ props =>  <PublicProfile parentProps = {props} user={this.state.userInSession} /> }/>
         
       </Switch>
     </div>

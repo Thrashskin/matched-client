@@ -10,7 +10,7 @@ export default class Profile extends React.Component {
                 {
                 this.props.userInSession ? 
                 <div>
-                    <UserDetails userInSession={this.props.userInSession}/>
+                    <UserDetails user={this.props.userInSession}/>
                     <Link to='/profile/edit' >Edit Profile</Link>
                 </div> :
                 <p>Please, log in =)</p>

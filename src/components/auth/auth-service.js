@@ -130,6 +130,14 @@ class AuthService {
         })
         .catch(error => error)
     }
+
+    getCandidates = (offerID) => {
+        return this.service.get(`/offer/${offerID}/candidates`)
+        .then(response => response.data)
+        .catch(error => error)
+    }
+
+    
 }
 
 export default AuthService;
