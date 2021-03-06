@@ -21,6 +21,7 @@ import OfferSwiper from './components/OfferSwiper';
 import Chat from './components/Chat';
 import CandidatesList from './components/CandidatesList';
 import PublicProfile from './components/PublicProfile';
+import MessagesList from './components/MessagesList';
 
 //Styles
 

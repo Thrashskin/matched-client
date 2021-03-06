@@ -164,6 +164,7 @@ class AuthService {
         return this.service.post(`/chats/${chatID}/createMessage`, message)
         .then(response => {
             console.log(response)
+            return response
         })
         .catch(error => console.log(error));
     }

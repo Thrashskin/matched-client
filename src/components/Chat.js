@@ -44,13 +44,22 @@ class Chat extends React.Component {
             senderID: this.props.userInSession._id,
             senderName: this.props.userInSession.name
           }, () => this.forceUpdate())
-          
         })
         .catch(error => console.log(error))
     } else {
       this.forceUpdate();
     }
 
+  }
+
+  updateChat = () => {
+    this.service.getChatByID(this.chatID)
+    .then(response => {
+      console.log(response)
+      this.messages = response.data.messages
+      this.forceUpdate();
+    })
+    .catch(error => console.log(error))
   }
 
   handleChange(e) {
@@ -66,17 +75,23 @@ class Chat extends React.Component {
     e.preventDefault();
     console.log(this.state)
     this.service.submitMessage(this.chatID, this.state)
-    .then(response => console.log(response))
+    .then(response => {
+      console.log(response);
+      this.setState({
+        content: ''
+      }, () => this.updateChat())
+    })
     .catch(error => console.log(error))
     //this.scrollToBottom
   }
 
   messagesList = () => {
-    this.messages.map((msg, index) => {
+    return this.messages.map((msg, index) => {
+      console.log(msg)
       return (
-        <div key={index}>
+        <li key={index}>
           <p>{`${msg.senderName}: ${msg.content}`}</p>
-        </div>
+        </li>
       );
     })
   }
@@ -99,10 +114,11 @@ class Chat extends React.Component {
             <Form.Row>
               <Form.Group as={Col} controlId="formGridContent">
                 {/* <Form.Label>Title</Form.Label> */}
-                <Form.Control type="text" placeholder='Type your message here...' onChange={e => this.handleChange(e)} name="content" />
+                <Form.Control type="text" placeholder='Type your message here...' value={this.state.content} onChange={e => this.handleChange(e)} name="content" />
               </Form.Group>
             </Form.Row>
             <Button variant="primary" type="submit">Submit</Button>
+            {/* <Button variant="primary" onClick={() => this.updateChat()}>Update</Button> */}
           </Form>
         </div>
       );
