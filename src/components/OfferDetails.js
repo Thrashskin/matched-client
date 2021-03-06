@@ -16,6 +16,9 @@ export default class OfferDetails extends React.Component {
         this.isUserCompany = false;
         this.isOwner = false;
 
+        this.publisher = '';
+        this.publisherID = '';
+
 
 
         console.log(this.props.user)
@@ -37,6 +40,10 @@ export default class OfferDetails extends React.Component {
                         
                         this.isOwner = this.props.user._id === this.state.publisher._id ? true : false;
                     }
+
+                    this.publisher = this.state.publisher.name;
+                    this.publisherID = this.state.publisher._id;
+
                     this.forceUpdate();
                 })
             })
@@ -126,7 +133,7 @@ export default class OfferDetails extends React.Component {
         return (
             <div>
                 <h3>{this.state.title}</h3>
-                {/* {isOwner ? <div><br /><p>{`At:${this.state.publisher.name}`}</p></div>:null} */}
+                {this.isOwner ? null : <div><Link to={`/Company/${this.publisherID}`}><br /><p>{`At: ${this.publisher}`}</p></Link></div>}
                 <br />
                 <p>Description:</p>
                 <p>{this.state.description}</p>
