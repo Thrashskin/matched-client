@@ -13,6 +13,7 @@ export default class NavigationBar extends React.Component {
                 <Link to="/">Home</Link>
                 <br/>
                 <Link to="/profile">My Profile</Link>
+                <Link to="/messages">My messages</Link>
                 </Nav>
                 <Form inline>
                 </Form>

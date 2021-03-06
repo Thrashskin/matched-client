@@ -169,9 +169,11 @@ class AuthService {
         .catch(error => console.log(error));
     }
 
-
-
-    
+    getMyMessages = (userID) => {
+        return this.service.get(`/${userID}/chats`)
+        .then(response => response)
+        .catch(error => error)
+    }
 }
 
 export default AuthService;
