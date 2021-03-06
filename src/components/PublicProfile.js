@@ -10,18 +10,49 @@ export default class PublicProfile extends React.Component {
         console.log(props)
         this.state = {}
 
-
-
         this.service = new AuthService();
-        this.kind = this.props.parentProps.match.params.userType
-        this.userID = this.props.parentProps.match.params.userID
+        this.kind = this.props.parentProps.match.params.userType //for the profile NOT for the user in session
+        this.userID = this.props.parentProps.match.params.userID //for the profile NOT for the user in session
     }
 
     async componentDidMount() {
         const response = await this.service.getProfile(this.kind, this.userID);
         await this.setState(response)
-        await console.log(this.state)
+        //await console.log(this.state)
     }
+
+    renderChat = () => {
+
+
+        console.log(this.props)
+        //since this profile component is valid for both, companies and seekers
+        //we need to define who is sending a message to whom.
+        //const companyToSeeker = true;
+
+        let participants = {};
+        
+        if (this.props.user.kind === 'Company') {
+            participants = {
+                company: this.props.user._id,
+                seeker: this.userID
+            }
+        } else {
+            participants = {
+                company: this.userID,
+                seeker: this.props.user._id
+            }
+        }
+
+        this.service.renderChat(participants)
+        .then(response => {
+            console.log(response)
+            this.props.parentProps.history.push(`/chats/${response.data._id}`)
+        })
+        .catch(error => console.log(error))
+        
+    }
+
+
     
      render() {
 
@@ -54,7 +85,7 @@ export default class PublicProfile extends React.Component {
                         :
                         null
                     }
-                    <Button>Send Message</Button>
+                    <Button onClick={() => this.renderChat()}>Send Message</Button>
                     
                 </div>
             );
@@ -65,7 +96,7 @@ export default class PublicProfile extends React.Component {
                     <h1>{this.state.name}</h1>
                     <p>Location: {`${this.state.city}, ${this.state.country}`}</p>
                     <p>{`${this.state.description}`}</p>
-                    <Button>Send Message</Button>
+                    <Button onClick={() => this.renderChat()}>Send Message</Button>
                 </div>
             );
         }

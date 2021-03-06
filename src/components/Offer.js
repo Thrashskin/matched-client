@@ -69,9 +69,9 @@ export default class Offer extends React.Component {
             let {title, description, salary} = this.state.currentOffer
         return (
             <div>
-                <div>
+                {/* <div>
                     <h2>HERE GOES THE LOGO</h2><h2>HERE GOES THE NAME</h2>
-                </div>
+                </div> */}
                 <div>
                 <h1>{title}</h1>
                 <p>{description}</p>

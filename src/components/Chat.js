@@ -1,12 +1,17 @@
 import React from 'react';
-import config from '../config';
-import io from 'socket.io-client';
+import Message from './Message';
+import Form from 'react-bootstrap/Form'
+import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
+//import config from '../config';
 
-import Paper from '@material-ui/core/Paper';
-import Typography from '@material-ui/core/Typography';
+
+// import Paper from '@material-ui/core/Paper';
+// import Typography from '@material-ui/core/Typography';
 
 import BottomBar from './BottomBar';
 import './Chat.css';
+import AuthService from './auth/auth-service';
 
 class Chat extends React.Component {
   constructor(props) {
@@ -15,99 +20,98 @@ class Chat extends React.Component {
     console.log(this.props)
 
     this.state = {
-      chat: [],
-      content: '',
-      name: ''
+      senderID: '',
+      senderName: '',
+      content:''
     };
+
+    this.service = new AuthService();
+    this.allowed = false;
+    this.chatID = this.props.parentProps.match.params.chatID
+    this.messages = [];
   }
 
   componentDidMount() {
-    this.socket = io(config[process.env.NODE_ENV].endpoint);
 
-    // Load the last 10 messages in the window.
-    this.socket.on('init', (msg) => {
-      let msgReversed = msg.reverse();
-      this.setState((state) => ({
-        chat: [...state.chat, ...msgReversed],
-      }), this.scrollToBottom);
-    });
+    if (this.props.userInSession) {
+      this.allowed = true;
 
-    // Update the chat if a new message is broadcasted.
-    this.socket.on('push', (msg) => {
-      this.setState((state) => ({
-        chat: [...state.chat, msg],
-      }), this.scrollToBottom);
-    });
+      this.service.getChatByID(this.chatID)
+        .then(response => {
+          console.log(response)
+          this.messages = response.data.messages
+          this.setState({
+            senderID: this.props.userInSession._id,
+            senderName: this.props.userInSession.name
+          }, () => this.forceUpdate())
+          
+        })
+        .catch(error => console.log(error))
+    } else {
+      this.forceUpdate();
+    }
+
   }
 
-  // Save the message the user is typing in the input field.
-  handleContent(event) {
+  handleChange(e) {
+
+    const { name, value } = e.target;
     this.setState({
-      content: event.target.value,
-    });
+        [name]: value
+    }, () => console.log(this.state));
   }
 
-  //
-//   handleName(event) {
-//     this.setState({
-//       name: event.target.value,
-//     });
-//   }
-
-  handleSubmit(event) {
+  handleSubmit(e) {
     // Prevent the form to reload the current page.
-    event.preventDefault();
+    e.preventDefault();
+    console.log(this.state)
+    this.service.submitMessage(this.chatID, this.state)
+    .then(response => console.log(response))
+    .catch(error => console.log(error))
+    //this.scrollToBottom
+  }
 
-    // Send the new message to the server.
-    this.socket.emit('message', {
-      name: this.state.name,
-      content: this.state.content,
-    });
-
-    this.setState((state) => {
-      // Update the chat with the user's message and remove the current message.
-      return {
-        chat: [...state.chat, {
-          name: state.name,
-          content: state.content,
-        }],
-        content: '',
-      };
-    }, this.scrollToBottom);
+  messagesList = () => {
+    this.messages.map((msg, index) => {
+      return (
+        <div key={index}>
+          <p>{`${msg.senderName}: ${msg.content}`}</p>
+        </div>
+      );
+    })
   }
 
   // Always make sure the window is scrolled down to the last message.
-  scrollToBottom() {
-    const chat = document.getElementById('chat');
-    chat.scrollTop = chat.scrollHeight;
-  }
+  // scrollToBottom() {
+  //   const chat = document.getElementById('chat');
+  //   chat.scrollTop = chat.scrollHeight;
+  // }
 
   render() {
-    return (
-      <div className="App">
-        <Paper id="chat" elevation={3}>
-          {this.state.chat.map((el, index) => {
-            return (
-              <div key={index}>
-                <Typography variant="caption" className="name">
-                  {el.name}
-                </Typography>
-                <Typography variant="body1" className="content">
-                  {el.content}
-                </Typography>
-              </div>
-            );
-          })}
-        </Paper>
-        <BottomBar
-          content={this.state.content}
-          handleContent={this.handleContent.bind(this)}
-          //handleName={this.handleName.bind(this)}
-          handleSubmit={this.handleSubmit.bind(this)}
-          //name={this.state.name}
-        />
-      </div>
-    );
+
+    if (this.allowed) {
+      return (
+        <div>
+          <ul>
+            {this.messages.length > 0 ? this.messagesList() : null}
+          </ul>
+          <Form onSubmit={e => this.handleSubmit(e)}>
+            <Form.Row>
+              <Form.Group as={Col} controlId="formGridContent">
+                {/* <Form.Label>Title</Form.Label> */}
+                <Form.Control type="text" placeholder='Type your message here...' onChange={e => this.handleChange(e)} name="content" />
+              </Form.Group>
+            </Form.Row>
+            <Button variant="primary" type="submit">Submit</Button>
+          </Form>
+        </div>
+      );
+    } else {
+      return (
+        <p>You are not allowed to access this section. Sorry for the inconveniences.</p>
+      );
+    }
+
   }
 };
 

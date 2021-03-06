@@ -137,6 +137,39 @@ class AuthService {
         .catch(error => error)
     }
 
+    renderChat = (participants) => {
+        //If there is no existing chat between these two participants
+        //one will be created and returned as response.
+        //Otherwise, the existing chat will be returned.
+
+        //participants is an object containing a company ID and a seeker ID.
+        return this.service.post('/chats/create', participants)
+        .then(response => {
+            console.log(response)
+            return response
+        })
+        .catch(error => error)
+    }
+
+    getChatByID = (chatID) => {
+        return this.service.get(`/chats/${chatID}`)
+        .then(response => {
+            console.log(response)
+            return response
+        })
+        .catch(error => error)
+    }
+
+    submitMessage = (chatID, message) => {
+        return this.service.post(`/chats/${chatID}/createMessage`, message)
+        .then(response => {
+            console.log(response)
+        })
+        .catch(error => console.log(error));
+    }
+
+
+
     
 }
 
