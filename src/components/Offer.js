@@ -1,6 +1,7 @@
 import React from 'react';
 import AuthService from './auth/auth-service';
 import Button from 'react-bootstrap/Button';
+import './Offer.css'
 
 export default class Offer extends React.Component {
     constructor(props) {
@@ -77,7 +78,7 @@ export default class Offer extends React.Component {
                 <p>{description}</p>
                 <p>{`${salary.from}€ - ${salary.to}€`}</p>
                 </div>
-                <div>
+                <div className='options-container'>
                     <Button onClick={() => this.handleReject()}>Reject</Button>
                     <Button onClick={() => this.handleSave()}>Save For Later</Button>
                     <Button onClick={() => this.handleApply()}>Apply</Button>

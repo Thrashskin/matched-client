@@ -1,0 +1,19 @@
+img {
+    width: 100px;
+}
+
+
+.myCustomNavLink {
+    font-size: 25px;
+    color: white;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  
+  .myCustomNavLink:hover {
+    color: #e85d04;
+  }
+
+  .navbar-border{
+      border-radius: 15px;
+  }

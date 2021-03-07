@@ -1,0 +1,10 @@
+.link-custom{
+    font-size: 25px;
+    color: white;
+    margin-left: 15px;
+    margin-right: 15px;
+}
+
+.link-custom:hover {
+    color: #e85d04;
+  }

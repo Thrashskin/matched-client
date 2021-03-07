@@ -1,7 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import AuthService from './auth/auth-service';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import './OfferDetails.css'
 
 export default class OfferDetails extends React.Component {
 
@@ -95,9 +96,9 @@ export default class OfferDetails extends React.Component {
             <div>
                 {this.state.candidates.length > 0 ? <Link to={`/offers/${this.offerID}/candidates`}>See candidates</Link> : <p>There are nor candiates yet for this offer.</p>}
                 <br/>
-                <Button><Link to={`/offers/${this.offerID}/edit`}>Edit</Link></Button>
+                <Button><Link to={`/offers/${this.offerID}/edit`} className='link-custom'>Edit</Link></Button>
                 <Button onClick={() => this.deleteOffer()}>
-                    <Link to={`/offers`}>Delete</Link>
+                    <Link to={`/offers`} className='link-custom'>Delete</Link>
                 </Button>
             </div>
         );

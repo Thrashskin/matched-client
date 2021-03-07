@@ -1,23 +1,25 @@
 import React from 'react'
-import Nav from 'react-bootstrap/Nav'
-import Navbar from 'react-bootstrap/Navbar'
-import Form from 'react-bootstrap/Form'
-import {Link} from 'react-router-dom'
+import { Navbar, Nav, Container } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import logo from '../logo_white.png'
+import './NavigationBar.css'
+
+const customClass = "myCustomNavLink";
 
 export default class NavigationBar extends React.Component {
     render() {
         return (
-            <Navbar bg="dark" variant="dark">
-                <Navbar.Brand href="#home">Logo</Navbar.Brand>
-                <Nav className="mr-auto">
-                <Link to="/">Home</Link>
-                <br/>
-                <Link to="/profile">My Profile</Link>
-                <Link to="/messages">My messages</Link>
-                </Nav>
-                <Form inline>
-                </Form>
-            </Navbar>
+                <Navbar bg="dark" variant="secondary" className='navbar-border'>
+                    {/* <Navbar.Brand href="#home">Logo</Navbar.Brand> */}
+                    <Navbar.Brand href="#home"><img src={logo} /></Navbar.Brand>
+                    
+                    <Nav className="ml-auto">
+                        <Nav.Item className='navs-text'><Nav.Link href="/"  bsPrefix={customClass}>Home</Nav.Link></Nav.Item>
+                        <Nav.Item className='navs-text'><Nav.Link href="/profile"  bsPrefix={customClass}>My Profile</Nav.Link></Nav.Item>
+                        <Nav.Item className='navs-text'><Nav.Link href="/messages"  bsPrefix={customClass}>My messages</Nav.Link></Nav.Item>
+                    </Nav>
+                </Navbar>
+
         )
     }
 }

@@ -2,7 +2,9 @@
 import React from 'react';
 
 //THIRD PARTY COMPONENTS
-import {Link, Switch, Route} from 'react-router-dom'
+import { Link, Switch, Route } from 'react-router-dom'
+import { Container } from 'react-bootstrap'
+import Cookies from 'js-cookie'
 
 //LOCAL COMPONENTS
 import Signup from './components/auth/Signup';
@@ -29,75 +31,133 @@ import Conversations from './components/Conversations';
 class App extends React.Component {
 
   constructor() {
-   super()
+    super()
     this.state = {
-      userInSession: null //JSON.parse(localStorage.getItem('user'))
-   }
-}
+      userInSession: JSON.parse(localStorage.getItem('user'))
+    }
+  }
 
-componentDidMount() {
-  const userInSession = localStorage.getItem('user')
-  this.setState({
-    userInSession: JSON.parse(userInSession)
-  })
-}
+  componentDidMount() {
+    const userInSession = localStorage.getItem('user')
+    this.setState({
+      userInSession: JSON.parse(userInSession)
+      //userInSession: JSON.parse(Cookies.get('user'))
+    }, () => this.forceUpdate())
+  }
 
-setUserInSession = userObject => {
-  this.setState({
-    userInSession: userObject
-  });
-}
+  setUserInSession = userObject => {
+    console.log(userObject)
+    this.setState({
+      userInSession: userObject
+    }, () => this.forceUpdate());
+  }
 
-logOutUser = () => {
-  this.setState({
-    userInSession: null
-  })
-}
+  logOutUser = () => {
+    this.setState({
+      userInSession: null
+    })
+  }
 
-render() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <NavigationBar />
-        <Sidebar userInSession={this.state.userInSession}/>
-        <p>
-          Welcome to Matched - The first step to find the special one ;) (We are talking about a job!)
-        </p>
-        <div>
-          { this.state.userInSession ? <p>{`Hola ${this.state.userInSession.email}`}</p> : <p>Pls, log in mate</p> }
+  render() {
+
+    return (
+      <Container>
+        <div className="App">
+          <header className="App-header">
+            <NavigationBar userInSession={this.state.userInSession}/>
+            <Sidebar userInSession={this.state.userInSession} />
+
+            <div>
+              {this.state.userInSession ? <h1>{`Hola ${this.state.userInSession.email} - THIS NEEDS TO BE REMOVED`}</h1> : <p>Pls, log in mate</p>}
+            </div>
+
+
+            <Logout logUserOut={() => this.logOutUser()} />
+            <br />
+            {this.state.userInSession ? <OfferSwiper userInSession={this.state.userInSession} /> : null}
+
+
+          </header>
+          <Switch>
+            <Route exact path="/signup" render={() => <Signup setUser={this.setUserInSession} />} />
+            <Route exact path="/login" render={() => <Login setUser={this.setUserInSession} />} />
+            <Route exact path="/profile" render={() => <Profile userInSession={this.state.userInSession} />} />
+            <Route exact path="/profile/edit" render={props => <EditProfile parentProps={props} userInSession={this.state.userInSession} />} /> {/*NEEDS PROTECTION*/}
+            {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
+            <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList} />
+            <ProtectedRoute exact path="/applications" user={this.state.userInSession} component={OfferList} />
+            <ProtectedRoute exact path="/saved" user={this.state.userInSession} component={OfferList} />
+            <ProtectedRoute exact path="/messages" user={this.state.userInSession} component={Conversations} />
+            <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer} />
+            {/* <ProtectedRoute exact path="/offers/add-offer" render = { props => <AddOffer parentProps = {props} userInSession = {this.state.userInSession}/>} /> */}
+            <Route exact path="/offers/:offerID" render={props => <OfferDetails parentProps={props} user={this.state.userInSession} />} />
+            <Route exact path="/offers/:offerID/edit" render={props => <EditOffer parentProps={props} userInSession={this.state.userInSession} />} />
+            <Route exact path="/offers/:offerID/candidates" render={props => <CandidatesList parentProps={props} userInSession={this.state.userInSession} />} />
+            <Route exact path="/chats/:chatID" render={props => <Chat parentProps={props} userInSession={this.state.userInSession} />} />
+            <Route exact path="/:userType/:userID" render={props => <PublicProfile parentProps={props} user={this.state.userInSession} />} />
+
+          </Switch>
         </div>
-        <Link to='/signup'>Signup</Link>
-        <p>
-          Already have an account? <Link to='/login'>Login</Link>
-        </p>
-        <Logout logUserOut = { () => this.logOutUser() }/>
-        <br/>
-        {this.state.userInSession ? <OfferSwiper userInSession={this.state.userInSession}/> : null}
-        
-        
-      </header>
-      <Switch>
-        <Route exact path="/signup" render={ () =>  <Signup setUser={this.setUserInSession} /> }/>
-        <Route exact path="/login" render={ () =>  <Login setUser={this.setUserInSession} /> }/>
-        <Route exact path="/profile" render={ () =>  <Profile userInSession={this.state.userInSession} /> }/>
-        <Route exact path="/profile/edit" render={ props =>  <EditProfile parentProps = {props} userInSession={this.state.userInSession} /> }/> {/*NEEDS PROTECTION*/}
-        {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
-        <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList}/>
-        <ProtectedRoute exact path="/applications" user={this.state.userInSession} component={OfferList}/>
-        <ProtectedRoute exact path="/saved" user={this.state.userInSession} component={OfferList}/>
-        <ProtectedRoute exact path="/messages" user={this.state.userInSession} component={Conversations}/>
-        <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer}/>
-        {/* <ProtectedRoute exact path="/offers/add-offer" render = { props => <AddOffer parentProps = {props} userInSession = {this.state.userInSession}/>} /> */}
-        <Route exact path="/offers/:offerID" render = { props => <OfferDetails parentProps = {props} user = {this.state.userInSession}/>} />
-        <Route exact path="/offers/:offerID/edit" render = { props => <EditOffer parentProps = {props} userInSession = {this.state.userInSession}/>} />
-        <Route exact path="/offers/:offerID/candidates" render = { props => <CandidatesList parentProps = {props} userInSession = {this.state.userInSession}/>} />
-        <Route exact path="/chats/:chatID" render = { props => <Chat parentProps = {props} userInSession = {this.state.userInSession}/>} />
-        <Route exact path="/:userType/:userID" render={ props =>  <PublicProfile parentProps = {props} user={this.state.userInSession} /> }/>
-        
-      </Switch>
-    </div>
-  );
-}
+      </Container>
+
+    );
+
+    // if (this.state.userInSession) {
+
+    //   return (
+    //     <Container>
+    //       <div className="App">
+    //         <header className="App-header">
+    //           <NavigationBar />
+    //           <Sidebar userInSession={this.state.userInSession} />
+
+    //           <div>
+    //             {this.state.userInSession ? <h1>{`Hola ${this.state.userInSession.email} - THIS NEEDS TO BE REMOVED`}</h1> : <p>Pls, log in mate</p>}
+    //           </div>
+
+
+    //           <Logout logUserOut={() => this.logOutUser()} />
+    //           <br />
+    //           {this.state.userInSession ? <OfferSwiper userInSession={this.state.userInSession} /> : null}
+
+
+    //         </header>
+    //         <Switch>
+    //           <Route exact path="/signup" render={() => <Signup setUser={this.setUserInSession} />} />
+    //           <Route exact path="/login" render={() => <Login setUser={this.setUserInSession} />} />
+    //           <Route exact path="/profile" render={() => <Profile userInSession={this.state.userInSession} />} />
+    //           <Route exact path="/profile/edit" render={props => <EditProfile parentProps={props} userInSession={this.state.userInSession} />} /> {/*NEEDS PROTECTION*/}
+    //           {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
+    //           <ProtectedRoute exact path="/offers" user={this.state.userInSession} component={OfferList} />
+    //           <ProtectedRoute exact path="/applications" user={this.state.userInSession} component={OfferList} />
+    //           <ProtectedRoute exact path="/saved" user={this.state.userInSession} component={OfferList} />
+    //           <ProtectedRoute exact path="/messages" user={this.state.userInSession} component={Conversations} />
+    //           <ProtectedRoute exact path="/offers/add-offer" user={this.state.userInSession} component={AddOffer} />
+    //           {/* <ProtectedRoute exact path="/offers/add-offer" render = { props => <AddOffer parentProps = {props} userInSession = {this.state.userInSession}/>} /> */}
+    //           <Route exact path="/offers/:offerID" render={props => <OfferDetails parentProps={props} user={this.state.userInSession} />} />
+    //           <Route exact path="/offers/:offerID/edit" render={props => <EditOffer parentProps={props} userInSession={this.state.userInSession} />} />
+    //           <Route exact path="/offers/:offerID/candidates" render={props => <CandidatesList parentProps={props} userInSession={this.state.userInSession} />} />
+    //           <Route exact path="/chats/:chatID" render={props => <Chat parentProps={props} userInSession={this.state.userInSession} />} />
+    //           <Route exact path="/:userType/:userID" render={props => <PublicProfile parentProps={props} user={this.state.userInSession} />} />
+
+    //         </Switch>
+    //       </div>
+    //     </Container>
+
+    //   );
+    // } else {
+    //   return (
+    //     <div>
+    //       <Login/>
+    //       <Switch>
+    //       <Route exact path="/login" render={() => <Login setUser={this.setUserInSession} />} />
+    //         <Route exact path="/signup" render={() => <Signup setUser={this.setUserInSession} />} />
+    //       </Switch>
+    //     </div>
+
+    //   );
+    // }
+  }
 }
 
 export default App;

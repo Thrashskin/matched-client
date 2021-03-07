@@ -12,13 +12,13 @@ class AuthService {
 
     signup = (email, password, kind) => {
         return this.service.post('/signup', {email, password, kind}) //remember, this is actually an axios request.
-        .then(response => response.data);
+        .then(response => response.data)
+        .catch(error => error.response.data);
     }
 
     login = (email, password) => {
         return this.service.post('login', {email, password})
-        .then(response => response.data
-            )
+        .then(response => response.data)
         .catch(error => {
             //console.log(error.response.data)
             return error.response.data

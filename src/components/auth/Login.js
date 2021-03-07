@@ -1,6 +1,8 @@
 import React from 'react'
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import AuthService from './auth-service'
+import { Form, Container } from 'react-bootstrap'
+import Cookies from 'js-cookie'
 
 export default class Login extends React.Component {
 
@@ -13,16 +15,16 @@ export default class Login extends React.Component {
     this.state = {
       email: '',
       password: '',
-      errorMessage:''
+      errorMessage: ''
     }
 
     this.service = new AuthService();
   }
 
   handleChange(event) {
-    const {name, value} = event.target;
+    const { name, value } = event.target;
     this.setState({
-      [name]:value
+      [name]: value
     })
   }
 
@@ -31,52 +33,70 @@ export default class Login extends React.Component {
     const { email, password } = this.state;
     event.preventDefault();
 
+    const liftUser = (response) => this.props.setUser(response);
+
     this.service.login(email, password)
-    .then(response => {
-//      console.log(response)
+      .then(response => {
+        //      console.log(response)
 
-      if (response.errorMessage) {
-        
-        this.setState({
-          email: '',
-          password: '',
-          errorMessage: response.errorMessage
+        if (response.errorMessage) {
+
+          this.setState({
+            email: '',
+            password: '',
+            errorMessage: response.errorMessage
+          })
+
+        } else {
+          console.log(response)
+          localStorage.setItem('user', JSON.stringify(response))
+          
+          //Cookies.set('user', JSON.stringify(response))
+          this.setState({
+            email: '',
+            password: ''
+          }, () => {
+            console.log('lifting user')
+            liftUser(response)
+          })
+          
+        }
       })
-
-      } else {
-        console.log(response)
-        localStorage.setItem('user', JSON.stringify(response))
-        this.setState({
-          email: '',
-          password: ''
-        })
-        this.props.setUser(response)
-      }
-    })
-    .catch(error => error)
+      .catch(error => error)
 
 
   }
 
-    render(){
-        return(
-          <div>   
-            <form onSubmit={ e => this.handleFormSubmit(e)}>
-              <label>Email:</label>
-              <input type="text" name="email" value={this.state.email} onChange={ e => this.handleChange(e)}/>
-              
-              <label>Password:</label>
-              <input name="password" type="password" value={this.state.password} onChange={ e => this.handleChange(e)} />
-              
-              <input type="submit" value="Login" />
-            </form>
+  render() {
+    return (
+      <Container>
 
-            {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
+        <h3 className='text-center'>Log in</h3>
 
-            <p>Don't have an account? 
-                <Link to={"/signup"}>Sign Up</Link>
-            </p>
+        <Form onSubmit={e => this.handleFormSubmit(e)}>
+          <div className="form-group">
+            <Form.Label>Email:</Form.Label>
+            <Form.Control type="text" name="email" value={this.state.email} onChange={e => this.handleChange(e)} />
           </div>
-        )
-      }
+
+          <div className="form-group">
+            <Form.Label>Password:</Form.Label>
+            <Form.Control name="password" type="password" value={this.state.password} onChange={e => this.handleChange(e)} />
+            {/* <input name="password" type="password" className="form-control" value={this.state.password} onChange={ e => this.handleChange(e)} /> */}
+          </div>
+
+          {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
+
+          <button type="submit" className="btn btn-dark btn-lg btn-block">Log In</button>
+          {/* <input type="submit" value="Login" /> */}
+        </Form>
+
+        
+      <br/>
+        <p className="text-center">Don't have an account? 
+                <Link to={"/signup"}> Sign Up</Link>
+        </p>
+      </Container>
+    )
+  }
 }

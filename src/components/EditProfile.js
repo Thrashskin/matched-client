@@ -42,10 +42,22 @@ export default class EditProfile extends React.Component {
         let {_id } = this.props.userInSession
         let {name, lastName, city, country, email, gitHub, linkedIn} = this.state;
         let updatedProfile = {}
+        let stack = []
 
         if (userKind === 'seeker') {
-            let stack = this.state.stack.includes(" ") ? this.state.stack.split(" ").join("").split(",") : this.state.stack.split(",")
+            stack = [...this.state.stack]
             updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
+            // try {
+            //     stack = [...this.state.stack]
+            //     console.log(stack)
+            //     stack = this.state.stack.split(" ").join("").split(",");
+            //     updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
+            // } catch (error) {
+            //     stack = this.state.stack.split(",");
+            //     updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
+            // }
+            //stack = this.state.stack.includes(" ") ? this.state.stack.split(" ").join("").split(",") : this.state.stack.split(",")
+            // updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
         } else {
             updatedProfile = {name, city, country, email}
         }
