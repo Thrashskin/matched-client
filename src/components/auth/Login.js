@@ -12,7 +12,8 @@ export default class Login extends React.Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      errorMessage:''
     }
 
     this.service = new AuthService();
@@ -32,23 +33,29 @@ export default class Login extends React.Component {
 
     this.service.login(email, password)
     .then(response => {
+//      console.log(response)
 
-      
-      localStorage.setItem('user', JSON.stringify(response))
-      console.log(response)
-      
-      this.setState({
-        email: '',
-        password: ''
+      if (response.errorMessage) {
+        
+        this.setState({
+          email: '',
+          password: '',
+          errorMessage: response.errorMessage
       })
-      this.props.setUser(response)
+
+      } else {
+        console.log(response)
+        localStorage.setItem('user', JSON.stringify(response))
+        this.setState({
+          email: '',
+          password: ''
+        })
+        this.props.setUser(response)
+      }
     })
     .catch(error => error)
 
-    this.setState({
-        email: '',
-        password: ''
-    })
+
   }
 
     render(){
@@ -63,6 +70,8 @@ export default class Login extends React.Component {
               
               <input type="submit" value="Login" />
             </form>
+
+            {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
 
             <p>Don't have an account? 
                 <Link to={"/signup"}>Sign Up</Link>

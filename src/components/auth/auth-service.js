@@ -20,8 +20,8 @@ class AuthService {
         .then(response => response.data
             )
         .catch(error => {
-            console.log(error.response.data)
-            return error
+            //console.log(error.response.data)
+            return error.response.data
         })
     }
 
