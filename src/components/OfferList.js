@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AuthService from './auth/auth-service';
+import './OfferList.css'
 
 export default class OfferList extends React.Component {
 
@@ -56,7 +57,8 @@ export default class OfferList extends React.Component {
     render() {
 
         const offersToRender = this.state.offers.map((offer, index) => {
-            return (<li key={index}>
+            return (
+            <li key={index} className='offer'>
                 <Link to={`/offers/${offer._id}`}><h5>{offer.title}</h5></Link>
                 <p>{offer.stack}</p>
                 {this.renderCandidates(offer)}

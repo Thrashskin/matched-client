@@ -6,5 +6,11 @@
 }
 
 .link-custom:hover {
+    background-color: rgba(20, 20, 20, 0.6);
     color: #e85d04;
+    
+  }
+
+  .dark-custom{
+      background-color: rgba(20, 20, 20, 0.6);
   }

@@ -66,7 +66,7 @@ export default class Offer extends React.Component {
 
 
     render() {
-        
+            console.log('XXXXXXXX', this.state.currentOffer)
             let {title, description, salary} = this.state.currentOffer
         return (
             <div>

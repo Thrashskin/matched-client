@@ -43,8 +43,8 @@ export default class UserDetails extends React.Component {
             return (
                 <div>
                     <h5>Hi! Welcome to my profile!</h5>
-                    <span>My name is</span> <span><b>{`${this.state.user.name} ${this.state.user.lastName}`}</b></span><span>{` And I live in ${this.state.user.city} (This is located in ${this.state.user.country}, by the way).`}</span>
-                    <span>You can find me on Linkedin as </span><span><b>{`${this.state.user.linkedIn}`}</b></span> And in GitHub as <span><b>{`${this.state.user.gitHub}.`}</b></span><span></span>
+                    <span>My name is</span> <span><b>{`${this.state.user.name} ${this.state.user.lastName}`}</b></span><span>{` and I live in ${this.state.user.city} (This is located in ${this.state.user.country}, by the way).`}</span>
+                    <span> You can find me on Linkedin as </span><span><b>{`${this.state.user.linkedIn}`}</b></span> and in GitHub as <span><b>{`${this.state.user.gitHub}.`}</b></span><span></span>
                     <br/>
                     <br/>
                     
