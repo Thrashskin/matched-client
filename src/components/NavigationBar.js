@@ -1,6 +1,7 @@
 import React from 'react'
 import { Navbar, Nav, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import Logout from './auth/Logout'
 import logo from '../logo_white.png'
 import './NavigationBar.css'
 
@@ -17,6 +18,7 @@ export default class NavigationBar extends React.Component {
                         <Nav.Item className='navs-text'><Nav.Link href="/"  bsPrefix={customClass}>Home</Nav.Link></Nav.Item>
                         <Nav.Item className='navs-text'><Nav.Link href="/profile"  bsPrefix={customClass}>My Profile</Nav.Link></Nav.Item>
                         <Nav.Item className='navs-text'><Nav.Link href="/messages"  bsPrefix={customClass}>My messages</Nav.Link></Nav.Item>
+                        <Logout logUserOut={() => this.logOutUser()} />
                     </Nav>
                 </Navbar>
 

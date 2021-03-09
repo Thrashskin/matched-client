@@ -63,11 +63,6 @@ class App extends React.Component {
 
     if (!this.state.userInSession) {
       return (
-
-
-
-
-
         <Switch>
           <Route exact path="/" render={() => {
             return (
@@ -86,44 +81,31 @@ class App extends React.Component {
       );
     } else {
 
-
-
       return (
 
         <div className="App">
-          <header className="wrapper">
-
-            <NavigationBar userInSession={this.state.userInSession} className='navbar' />
-
-
-
+          {/* <header className="wrapper">
+            <NavigationBar userInSession={this.state.userInSession} logUserOut={() => this.logOutUser()} className='navbar' />
             <section className='content-container'>
-
               <Sidebar userInSession={this.state.userInSession} className='sidebar' />
-
               <div className='content'>
-
                 <div >
                   {this.state.userInSession ? <h1>{`Hola ${this.state.userInSession.email} - THIS NEEDS TO BE REMOVED`}</h1> : <p>Pls, log in mate</p>}
                 </div>
-
-
-                <Logout logUserOut={() => this.logOutUser()} />
-                <br />
-                {this.state.userInSession ? <OfferSwiper userInSession={this.state.userInSession} /> : null}
-
+                
               </div>
-
-
             </section>
-
-
-
-
-          </header>
+          </header> */}
           <Switch>
             {/* <Route exact path="/signup" render={() => <Signup setUser={this.setUserInSession} />} />
             <Route exact path="/login" render={() => <Login setUser={this.setUserInSession} />} /> */}
+            <Route exact path='/' render = {() => {
+              if (this.state.userInSession && this.state.userInSession.kind === 'Seeker') {
+                return (<OfferSwiper userInSession={this.state.userInSession} />);
+              } else {
+                return null
+              }
+            }}/>
             <Route exact path="/profile" render={() => <Profile userInSession={this.state.userInSession} />} />
             <Route exact path="/profile/edit" render={props => <EditProfile parentProps={props} userInSession={this.state.userInSession} />} /> {/*NEEDS PROTECTION*/}
             {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}

@@ -67,7 +67,7 @@ export default class UserDetails extends React.Component {
     
             return (
                 <div>
-                    <h5>Hi! Welcome to my profile!</h5>
+                    <h5>Hi! Welcome to our profile!</h5>
                     <span>We are </span> <span><b>{this.state.user.name}</b></span> <span>{` And we are located in ${this.state.user.city} (This is located in ${this.state.user.country}, by the way).`}</span>
                     <br/>
                     <p>Here you have some information about us:</p>

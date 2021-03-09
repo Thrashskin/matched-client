@@ -2,6 +2,8 @@ import React from 'react'
 import Offer from './Offer';
 import AuthService from './auth/auth-service'
 import './OfferSwiper.css'
+import NavigationBar from './NavigationBar'
+import Sidebar from './Sidebar'
 
 export default class OfferSwiper extends React.Component {
 
@@ -23,7 +25,7 @@ export default class OfferSwiper extends React.Component {
         if (this.props.userInSession) {
             this.service.getAllOffers()
                 .then(response => {
-                    console.log('pre filtro',response)
+                    console.log('pre filtro', response)
                     let filteredOffers = response.data.filter(offer => {
                         let notApplied = this.props.userInSession.offers.includes(offer._id) ? false : true
                         let notSaved = this.props.userInSession.saved.includes(offer._id) ? false : true
@@ -35,7 +37,7 @@ export default class OfferSwiper extends React.Component {
                             return null
                         }
                     })
-                    console.log('post filtro',filteredOffers)
+                    console.log('post filtro', filteredOffers)
                     this.setState({
                         offersToShow: filteredOffers
                     }, () => {
@@ -75,7 +77,12 @@ export default class OfferSwiper extends React.Component {
                     //console.log(this.state.offersToShow[0])
                     return (
                         <div className="OfferSwiper">
-                            <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} removeFromArray={this.removeFromArray} />
+                            <NavigationBar />
+                            <div style={{ float: 'left' }}>
+                                <Sidebar /></div>
+                            <div style={{ float: 'right', margin: '100px 250px 0 0' }}>
+                                <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} removeFromArray={this.removeFromArray} />
+                            </div>
                         </div>
                     );
                 } else {
