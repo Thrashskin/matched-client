@@ -1,9 +1,10 @@
 import './App.css';
 import React from 'react';
+import logo from './logo_white.png';
 
 //THIRD PARTY COMPONENTS
 import { Link, Switch, Route, Redirect } from 'react-router-dom'
-import { Container } from 'react-bootstrap'
+import { Container, Button } from 'react-bootstrap'
 import Cookies from 'js-cookie'
 
 //LOCAL COMPONENTS
@@ -24,6 +25,9 @@ import Chat from './components/Chat';
 import CandidatesList from './components/CandidatesList';
 import PublicProfile from './components/PublicProfile';
 import Conversations from './components/Conversations';
+import CompanyWelcome from './components/CompanyWelcome';
+
+const customClass = "myCustomNavLink";
 
 //Styles
 
@@ -52,35 +56,47 @@ class App extends React.Component {
     }, () => {
       //this.forceUpdate()
       console.log(this.props)
-      return <Redirect to='/'/>
+      return <Redirect to='/' />
       //this.props.history.push('/');
     });
   }
 
-  logOutUser = () => {
-    this.setState({
-      userInSession: null
-    }, () => {
-      return <Redirect to='/'/>
-    })
-  }
+  // logOutUser = () => {
+  //   this.setState({
+  //     userInSession: null
+  //   }, () => {
+  //     return <Redirect to='/' />
+  //   })
+  // }
 
 
   render() {
+
+    // if (!localStorage.getItem('user')) {
+    //   this.setState({
+    //     userInSession: null
+    //   })
+    // }
 
     if (!this.state.userInSession) {
       return (
         <Switch>
           <Route exact path="/" render={() => {
             return (
-              <div>
-                <Link to="/login">Login</Link>
-                <br />
-                <Link to="/signup">Signup</Link>
+              <div className='welcomePage'>
+                <div className='wraper'>
+                  <div>
+                    <img className='logo' src={logo} />
+                  </div>
+                  <div>
+                    <Button className='loginButton' ><Link className='linkText' to="/login">Login</Link></Button>
+                    <Button className='loginButton' ><Link className='linkText' to="/signup">Signup</Link></Button>
+                  </div>
+                </div>
               </div>
-              
-             );
-            }
+
+            );
+          }
           } />
           <Route exact path="/login" render={() => <Login setUser={this.setUserInSession} />} />
           <Route exact path="/signup" render={() => <Signup setUser={this.setUserInSession} />} />
@@ -106,15 +122,16 @@ class App extends React.Component {
           <Switch>
             {/* <Route exact path="/signup" render={() => <Signup setUser={this.setUserInSession} />} />
             <Route exact path="/login" render={() => <Login setUser={this.setUserInSession} />} /> */}
-            <Route exact path='/' render = {() => {
+            <Route exact path='/' render={(props) => {
               if (this.state.userInSession && this.state.userInSession.kind === 'Seeker') {
-                return (<OfferSwiper userInSession={this.state.userInSession} />);
+                return (<OfferSwiper userInSession={this.state.userInSession} {...props} />);
               } else {
-                return (<AddOffer/>);
+                return (<CompanyWelcome />);
               }
-            }}/>
+            }} />
             <Redirect from='/login' to="/" />
             <Redirect from='/signup' to="/" />
+            <Route exact path="/login" render={() => <Login setUser={this.setUserInSession} />} />
             <Route exact path="/profile" render={() => <Profile userInSession={this.state.userInSession} />} />
             <Route exact path="/profile/edit" render={props => <EditProfile parentProps={props} userInSession={this.state.userInSession} />} /> {/*NEEDS PROTECTION*/}
             {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}

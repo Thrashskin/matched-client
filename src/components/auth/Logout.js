@@ -1,28 +1,29 @@
-import React  from 'react'
-import {Link} from 'react-router-dom'
-import AuthService from './auth-service'
+// import React  from 'react'
+// import {Link} from 'react-router-dom'
+// import AuthService from './auth-service'
 
-export default class Logout extends React.Component {
+// export default class Logout extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.service = new AuthService();
-    }
+//     constructor(props) {
+//         super(props);
+//         this.service = new AuthService();
+//     }
 
-    logOut = () => {
-        this.service.logout()
-        .then(() => {
-            localStorage.clear();
-            this.props.logUserOut();
-        })
-        .catch(error => console.log(error))
-    }
+//     logOut = () => {
+//         this.service.logout()
+//         .then(() => {
+//             localStorage.clear();
+//             //this.props.logUserOut();
+
+//         })
+//         .catch(error => console.log(error))
+//     }
     
-    render() {
-        return (
-            <div>
-                <Link to='/' onClick={ () => this.logOut()}>Logout</Link>
-            </div>
-        )
-    }
-}
+//     render() {
+//         return (
+//             <div>
+//                 <Link to='/' onClick={ () => this.logOut()}>Logout</Link>
+//             </div>
+//         )
+//     }
+// }

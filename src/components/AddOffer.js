@@ -25,6 +25,8 @@ export default class AddOffer extends React.Component {
         this.parentProps = props;
         this.service = new AuthService();
 
+        console.log(this.props)
+
     }
 
     handleFormSubmit(event) {
@@ -49,8 +51,7 @@ export default class AddOffer extends React.Component {
             .then(response => {
                 console.log(response)
                 this.parentProps.history.push('/offers')
-            })
-            .catch(error => console.log(error.response));
+            }).catch(error => console.log(error.response));
 
         // axios.post('http://localhost:5000/api/offer', offerBody)
         // .then( response =>  console.log(response))

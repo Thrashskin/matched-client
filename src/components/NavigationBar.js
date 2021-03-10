@@ -3,6 +3,8 @@ import { Navbar, Nav, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import Logout from './auth/Logout'
 import logo from '../logo_white.png'
+import Button from 'react-bootstrap/Button';
+import AuthService from './auth/auth-service'
 import './NavigationBar.css'
 
 const customClass = "myCustomNavLink";
@@ -11,16 +13,29 @@ export default class NavigationBar extends React.Component {
 
     constructor(props) {
         super(props);
+        this.service = new AuthService();
+        console.log(props)
     }
 
-    logOutUser = () => {
-        this.props.logUserOut();
+    logOut = () => {
+       if (this.props !== undefined ) {this.service.logout()
+        .then(() => {
+            console.log('LOGOUT')
+            localStorage.clear();
+            window.location.reload(true);
+            // console.log(this.props.props.history)
+            // this.props.props.history.push("/login")
+            // this.forceUpdate()
+            
+        })
+        .catch(error => console.log(error))} else {console.log('props are undefined')}
     }
 
+    
     render() {
-
+        console.log(this.props.props)
         return (
-                <Navbar bg="dark" variant="secondary" className='navbar-border' logUserOut={() => this.logOutUser()}>
+                <Navbar bg="dark" variant="secondary" className='navbar-border'>
                     {/* <Navbar.Brand href="#home">Logo</Navbar.Brand> */}
                     <Navbar.Brand href="/"><img src={logo} /></Navbar.Brand>
                     
@@ -28,6 +43,7 @@ export default class NavigationBar extends React.Component {
                         <Nav.Item className='navs-text'><Nav.Link href="/"  bsPrefix={customClass}>Home</Nav.Link></Nav.Item>
                         <Nav.Item className='navs-text'><Nav.Link href="/profile"  bsPrefix={customClass}>My Profile</Nav.Link></Nav.Item>
                         <Nav.Item className='navs-text'><Nav.Link href="/messages"  bsPrefix={customClass}>My messages</Nav.Link></Nav.Item>
+                        <Nav.Item className='navs-text'><Link to='/login' onClick={() => this.logOut()}>Logout</Link></Nav.Item>
                     </Nav>
                 </Navbar>
 

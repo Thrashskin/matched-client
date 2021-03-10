@@ -24,7 +24,7 @@ export default class OfferDetails extends React.Component {
 
 
 
-        console.log(this.props.user)
+        console.log(this.props)
     }
 
     componentDidMount() {
@@ -54,13 +54,14 @@ export default class OfferDetails extends React.Component {
 
     applyToOffer = () => {
         this.service.applyToOffer(this.offerID)
-            .then(response => console.log(response))
-            .catch(error => console.log(error.response.data))
+            .then(response => {
+                this.props.parentProps.history.push('/applications')
+            }).catch(error => console.log(error))
     }
 
     saveOffer = () => {
         this.service.saveOffer(this.offerID)
-            .then(response => console.log(response))
+            .then(response => this.props.parentProps.history.push('/saved'))
             .catch(error => console.log(error))
     }
 

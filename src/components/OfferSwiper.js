@@ -4,7 +4,7 @@ import AuthService from './auth/auth-service'
 import './OfferSwiper.css'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
-import Logout from './auth/Logout'
+//import Logout from './auth/Logout'
 import Button from 'react-bootstrap/Button';
 
 export default class OfferSwiper extends React.Component {
@@ -69,7 +69,7 @@ export default class OfferSwiper extends React.Component {
     }
 
     render() {
-        //console.log(this.props)
+        console.log(this.props)
 
         if (this.props.userInSession) {
 
@@ -79,11 +79,11 @@ export default class OfferSwiper extends React.Component {
                     //console.log(this.state.offersToShow[0])
                     return (
                         <div className="OfferSwiper">
-                            <NavigationBar />
+                            <NavigationBar props={this.props} />
                             <div style={{ float: 'left' }}>
                                 <Sidebar />
                             </div>
-                            <Button><Logout logUserOut={() => this.logOutUser()} /></Button>
+                            {/* <Button><Logout logUserOut={() => this.logOutUser()} /></Button> */}
                             <div style={{ float: 'right', margin: '100px 250px 0 0' }}>
                                 <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} removeFromArray={this.removeFromArray} />
                             </div>
