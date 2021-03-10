@@ -2,7 +2,7 @@ import './App.css';
 import React from 'react';
 
 //THIRD PARTY COMPONENTS
-import { Link, Switch, Route } from 'react-router-dom'
+import { Link, Switch, Route, Redirect } from 'react-router-dom'
 import { Container } from 'react-bootstrap'
 import Cookies from 'js-cookie'
 
@@ -30,8 +30,8 @@ import Conversations from './components/Conversations';
 
 class App extends React.Component {
 
-  constructor() {
-    super()
+  constructor(props) {
+    super(props)
     this.state = {
       userInSession: JSON.parse(localStorage.getItem('user'))
     }
@@ -49,12 +49,19 @@ class App extends React.Component {
     console.log(userObject)
     this.setState({
       userInSession: userObject
-    }, () => this.forceUpdate());
+    }, () => {
+      //this.forceUpdate()
+      console.log(this.props)
+      return <Redirect to='/'/>
+      //this.props.history.push('/');
+    });
   }
 
   logOutUser = () => {
     this.setState({
       userInSession: null
+    }, () => {
+      return <Redirect to='/'/>
     })
   }
 
@@ -106,6 +113,8 @@ class App extends React.Component {
                 return (<AddOffer/>);
               }
             }}/>
+            <Redirect from='/login' to="/" />
+            <Redirect from='/signup' to="/" />
             <Route exact path="/profile" render={() => <Profile userInSession={this.state.userInSession} />} />
             <Route exact path="/profile/edit" render={props => <EditProfile parentProps={props} userInSession={this.state.userInSession} />} /> {/*NEEDS PROTECTION*/}
             {/* <Route exact path="/offers/add-offer" render={ () =>  <AddOffer userInSession={this.state.userInSession} /> }/> */}
