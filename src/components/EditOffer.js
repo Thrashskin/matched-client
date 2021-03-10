@@ -4,6 +4,8 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import AuthService from './auth/auth-service';
+import NavigationBar from './NavigationBar'
+import Sidebar from './Sidebar'
 
 
 export default class EditOffer extends React.Component {
@@ -64,8 +66,11 @@ export default class EditOffer extends React.Component {
             if (props.userInSession.kind === 'Seeker' || (props.userInSession._id !== this.state.publisher)) {
                 return (
                     <div>
-                        <p>Only the publisher of this offer can access to this section.</p>
-                        <p>If you are the owner of the offer, please <Link to='/login'>Login</Link></p>
+                        <NavigationBar />
+                    <div style={{ float: 'left' }}>
+                        <Sidebar />
+                    </div>
+                    <div><p>Only the publisher of this offer can access to this section.</p></div>
                     </div>
                 );
             } else {

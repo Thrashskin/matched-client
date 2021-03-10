@@ -12,7 +12,7 @@ export default class NavigationBar extends React.Component {
         return (
                 <Navbar bg="dark" variant="secondary" className='navbar-border'>
                     {/* <Navbar.Brand href="#home">Logo</Navbar.Brand> */}
-                    <Navbar.Brand href="#home"><img src={logo} /></Navbar.Brand>
+                    <Navbar.Brand href="/"><img src={logo} /></Navbar.Brand>
                     
                     <Nav className="ml-auto">
                         <Nav.Item className='navs-text'><Nav.Link href="/"  bsPrefix={customClass}>Home</Nav.Link></Nav.Item>

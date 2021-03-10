@@ -79,14 +79,26 @@ export default class OfferSwiper extends React.Component {
                         <div className="OfferSwiper">
                             <NavigationBar />
                             <div style={{ float: 'left' }}>
-                                <Sidebar /></div>
+                                <Sidebar />
+                            </div>
                             <div style={{ float: 'right', margin: '100px 250px 0 0' }}>
                                 <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} removeFromArray={this.removeFromArray} />
                             </div>
                         </div>
                     );
                 } else {
-                    return <p>Sorry, there are no offers matching your current prefferences =(</p>
+                    return (
+                        <div className="OfferSwiper">
+                            <NavigationBar />
+                            <div style={{ float: 'left' }}>
+                                <Sidebar />
+                            </div>
+                            <div style={{ float: 'right', margin: '100px 250px 0 0' }}>
+                                <p>Sorry, there are no offers matching your current prefferences =(</p>
+                            </div>
+                        </div>
+
+                    );
                 }
             } else {
                 return null

@@ -3,6 +3,8 @@ import Message from './Message';
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import NavigationBar from './NavigationBar'
+import Sidebar from './Sidebar'
 //import config from '../config';
 
 
@@ -22,7 +24,7 @@ class Chat extends React.Component {
     this.state = {
       senderID: '',
       senderName: '',
-      content:''
+      content: ''
     };
 
     this.service = new AuthService();
@@ -54,19 +56,19 @@ class Chat extends React.Component {
 
   updateChat = () => {
     this.service.getChatByID(this.chatID)
-    .then(response => {
-      console.log(response)
-      this.messages = response.data.messages
-      this.forceUpdate();
-    })
-    .catch(error => console.log(error))
+      .then(response => {
+        console.log(response)
+        this.messages = response.data.messages
+        this.forceUpdate();
+      })
+      .catch(error => console.log(error))
   }
 
   handleChange(e) {
 
     const { name, value } = e.target;
     this.setState({
-        [name]: value
+      [name]: value
     }, () => console.log(this.state));
   }
 
@@ -75,13 +77,13 @@ class Chat extends React.Component {
     e.preventDefault();
     console.log(this.state)
     this.service.submitMessage(this.chatID, this.state)
-    .then(response => {
-      console.log(response);
-      this.setState({
-        content: ''
-      }, () => this.updateChat())
-    })
-    .catch(error => console.log(error))
+      .then(response => {
+        console.log(response);
+        this.setState({
+          content: ''
+        }, () => this.updateChat())
+      })
+      .catch(error => console.log(error))
     //this.scrollToBottom
   }
 
@@ -107,19 +109,26 @@ class Chat extends React.Component {
     if (this.allowed) {
       return (
         <div>
-          <ul>
-            {this.messages.length > 0 ? this.messagesList() : null}
-          </ul>
-          <Form onSubmit={e => this.handleSubmit(e)}>
-            <Form.Row>
-              <Form.Group as={Col} controlId="formGridContent">
-                {/* <Form.Label>Title</Form.Label> */}
-                <Form.Control type="text" placeholder='Type your message here...' value={this.state.content} onChange={e => this.handleChange(e)} name="content" />
-              </Form.Group>
-            </Form.Row>
-            <Button variant="primary" type="submit">Submit</Button>
-            {/* <Button variant="primary" onClick={() => this.updateChat()}>Update</Button> */}
-          </Form>
+          <NavigationBar />
+          <div style={{ float: 'left' }}>
+            <Sidebar />
+          </div>
+          <div>
+            <ul>
+              {this.messages.length > 0 ? this.messagesList() : null}
+            </ul>
+            <Form onSubmit={e => this.handleSubmit(e)}>
+              <Form.Row>
+                <Form.Group as={Col} controlId="formGridContent">
+                  {/* <Form.Label>Title</Form.Label> */}
+                  <Form.Control type="text" placeholder='Type your message here...' value={this.state.content} onChange={e => this.handleChange(e)} name="content" />
+                </Form.Group>
+              </Form.Row>
+              <Button variant="primary" type="submit">Submit</Button>
+              {/* <Button variant="primary" onClick={() => this.updateChat()}>Update</Button> */}
+            </Form>
+          </div>
+
         </div>
       );
     } else {

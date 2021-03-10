@@ -103,7 +103,7 @@ class App extends React.Component {
               if (this.state.userInSession && this.state.userInSession.kind === 'Seeker') {
                 return (<OfferSwiper userInSession={this.state.userInSession} />);
               } else {
-                return null
+                return (<AddOffer/>);
               }
             }}/>
             <Route exact path="/profile" render={() => <Profile userInSession={this.state.userInSession} />} />

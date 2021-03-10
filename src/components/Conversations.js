@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AuthService from './auth/auth-service';
+import NavigationBar from './NavigationBar'
+import Sidebar from './Sidebar'
 
 export default class Conversations extends React.Component {
 
@@ -45,31 +47,45 @@ export default class Conversations extends React.Component {
                         </li>
                     )
                 } else {
-                   return (
-                   <li key={index}>
-                        <Link to={`/chats/${conv._id}`}><h4>{`Conversation with: ${conv.company.name}`}</h4></Link>
-                    </li>
+                    return (
+                        <li key={index}>
+                            <Link to={`/chats/${conv._id}`}><h4>{`Conversation with: ${conv.company.name}`}</h4></Link>
+                        </li>
                     )
                 }
             });
         } else {
             return <p>There are no conversations to show.</p>
         }
-        
+
     }
 
     render() {
 
         if (this.props.loggedInUser) {
             return (
-                <ul>
-                    {[this.conversationsList()]}
-                </ul>
+                <div>
+                    <NavigationBar />
+                    <div style={{ float: 'left' }}>
+                        <Sidebar />
+                    </div>
+                    <div>
+                        <ul>
+                            {[this.conversationsList()]}
+                        </ul>
+                    </div>
+                </div>
+
             )
         } else {
             return (
                 <div>
-                    <p>You need to be logged in to see this section. Please <Link to='/login'>login</Link></p>
+                    <NavigationBar />
+                    <div style={{ float: 'left' }}>
+                        <Sidebar />
+                    </div>
+                    <div><p>You need to be logged in to see this section. Please <Link to='/login'>login</Link></p></div>
+
                 </div>
             )
         }

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import AuthService from './auth/auth-service';
 import Button from 'react-bootstrap/Button';
 import './OfferDetails.css'
+import NavigationBar from './NavigationBar'
+import Sidebar from './Sidebar'
 
 export default class OfferDetails extends React.Component {
 
@@ -34,11 +36,11 @@ export default class OfferDetails extends React.Component {
                 this.setState(offerDetails, () => {
 
                     if (this.props.user) {
-            
+
                         this.isUserLoggedIn = true;
-                        
+
                         this.isUserCompany = this.props.user.kind === 'Company' ? true : false;
-                        
+
                         this.isOwner = this.props.user._id === this.state.publisher._id ? true : false;
                     }
 
@@ -94,8 +96,8 @@ export default class OfferDetails extends React.Component {
     CompanyOptions = () => {
         return (
             <div>
-                {this.state.candidates.length > 0 ? <Link to={`/offers/${this.offerID}/candidates`}>See candidates</Link> : <p>There are nor candiates yet for this offer.</p>}
-                <br/>
+                {this.state.candidates.length > 0 ? <Link to={`/offers/${this.offerID}/candidates`}>See candidates</Link> : <p>There are no candidates yet for this offer.</p>}
+                <br />
                 <Button className='dark-custom'><Link to={`/offers/${this.offerID}/edit`} className='link-custom'>Edit</Link></Button>
                 <Button className='dark-custom' onClick={() => this.deleteOffer()}>
                     <Link to={`/offers`} className='link-custom'>Delete</Link>
@@ -111,11 +113,11 @@ export default class OfferDetails extends React.Component {
         // let isOwner = false;
 
         // if (this.props.user) {
-            
+
         //     isUserLoggedIn = true;
-            
+
         //     isUserCompany = this.props.user.kind === 'Company' ? true : false;
-            
+
         //     isOwner = this.props.user._id === this.state.publisher._id ? true : false;
         // }
 
@@ -133,24 +135,31 @@ export default class OfferDetails extends React.Component {
 
         return (
             <div>
-                <h3>{this.state.title}</h3>
-                {this.isOwner ? null : <div><Link to={`/Company/${this.publisherID}`}><br /><p>{`At: ${this.publisher}`}</p></Link></div>}
-                <br />
-                <p>Description:</p>
-                <p>{this.state.description}</p>
-                <br />
-                <p>Minimum Experience:</p>
-                <p>{this.state.requiredExperience} years</p>
-                <br />
-                <p>Stack: </p>
-                <p>{this.state.stack}</p>
-                {this.state.salary ? <p>{`Salary: ${this.state.salary.from} ${this.state.currency} - ${this.state.salary.to} ${this.state.currency}`}</p>
-                    :
-                    <p>{`Salary: N/A }`}</p>
-                }
-                {
-                    optionToRender()
-                }
+                <NavigationBar />
+                <div style={{ float: 'left' }}>
+                    <Sidebar />
+                </div>
+                <div>
+                    <h3>{this.state.title}</h3>
+                    {this.isOwner ? null : <div><Link to={`/Company/${this.publisherID}`}><br /><p>{`At: ${this.publisher}`}</p></Link></div>}
+                    <br />
+                    <p>Description:</p>
+                    <p>{this.state.description}</p>
+                    <br />
+                    <p>Minimum Experience:</p>
+                    <p>{this.state.requiredExperience} years</p>
+                    <br />
+                    <p>Stack: </p>
+                    <p>{this.state.stack}</p>
+                    {this.state.salary ? <p>{`Salary: ${this.state.salary.from} ${this.state.currency} - ${this.state.salary.to} ${this.state.currency}`}</p>
+                        :
+                        <p>{`Salary: N/A }`}</p>
+                    }
+                    {
+                        optionToRender()
+                    }
+                </div>
+
             </div>
         )
     }
