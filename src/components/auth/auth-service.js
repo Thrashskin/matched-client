@@ -3,7 +3,7 @@ import axios from 'axios';
 class AuthService {
     constructor() {
         let service = axios.create({
-            baseURL: 'https://match3d.herokuapp.com/api',
+            baseURL: `${process.env.API_URL}/api`,
             withCredentials: true
         });
 
