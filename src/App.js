@@ -37,7 +37,9 @@ class App extends React.Component {
   constructor(props) {
     super(props)
 
-    const userDetails = localStorage.getItem('user') ?? null;
+    //const userDetails = (localStorage.getItem('user') !== undefined) ?? null;
+    const userDetails = localStorage.getItem('user') === undefined ? null : localStorage.getItem('user')
+
     this.state = {
         userInSession: JSON.parse(userDetails)
     }
