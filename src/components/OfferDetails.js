@@ -67,6 +67,7 @@ export default class OfferDetails extends React.Component {
 
     SeekerOptions = () => {
 
+        if (this.props.user.kind === 'Seeker') { 
         if (this.props.user.offers.includes(this.offerID)) {
             return <p>You already applied to this offer ;)</p>
         } else if (this.props.user.saved.includes(this.offerID) && !this.props.user.offers.includes(this.offerID)) {
@@ -80,21 +81,26 @@ export default class OfferDetails extends React.Component {
             );
 
         }
+    } else {
+        return null
     }
+}
 
-    deleteOffer = () => {
+deleteOffer = () => {
 
-        console.log('deleteOffer')
+    console.log('deleteOffer')
 
-        this.service.deleteOffer(this.offerID)
-            .then(response => console.log(response))
-            .catch(error => error)
+    this.service.deleteOffer(this.offerID)
+        .then(response => console.log(response))
+        .catch(error => error)
 
-    }
+}
 
 
 
-    CompanyOptions = () => {
+CompanyOptions = () => {
+    
+    if (this.props.user.kind === 'Company') {
         return (
             <div>
                 {this.state.candidates.length > 0 ? <Link to={`/offers/${this.offerID}/candidates`}>See candidates</Link> : <p>There are no candidates yet for this offer.</p>}
@@ -105,63 +111,68 @@ export default class OfferDetails extends React.Component {
                 </Button>
             </div>
         );
+    } else {
+        return null
     }
+    
+    
+}
 
-    render() {
+render() {
 
-        // let isUserLoggedIn = false;
-        // let isUserCompany = false;
-        // let isOwner = false;
+    // let isUserLoggedIn = false;
+    // let isUserCompany = false;
+    // let isOwner = false;
 
-        // if (this.props.user) {
+    // if (this.props.user) {
 
-        //     isUserLoggedIn = true;
+    //     isUserLoggedIn = true;
 
-        //     isUserCompany = this.props.user.kind === 'Company' ? true : false;
+    //     isUserCompany = this.props.user.kind === 'Company' ? true : false;
 
-        //     isOwner = this.props.user._id === this.state.publisher._id ? true : false;
-        // }
+    //     isOwner = this.props.user._id === this.state.publisher._id ? true : false;
+    // }
 
-        //We need to make sure that each kind of profile only sees the right options
-        //i.e., a seeker must not be able to edit an offer or a company must not apply to offers.
-        let optionToRender = () => {
-            if (this.isUserLoggedIn && this.isUserCompany && this.isOwner) {
-                return <this.CompanyOptions />
-            } else if (this.isUserLoggedIn && this.isUserCompany && (!this.isOwner)) {
-                return null
-            } else {
-                return <this.SeekerOptions />
-            }
+    //We need to make sure that each kind of profile only sees the right options
+    //i.e., a seeker must not be able to edit an offer or a company must not apply to offers.
+    let optionToRender = () => {
+        if (this.isUserLoggedIn && this.isUserCompany && this.isOwner) {
+            return <this.CompanyOptions />
+        } else if (this.isUserLoggedIn && this.isUserCompany && (!this.isOwner)) {
+            return null
+        } else {
+            return <this.SeekerOptions />
         }
-
-        return (
-            <div>
-                <NavigationBar />
-                <div style={{ float: 'left' }}>
-                    <Sidebar />
-                </div>
-                <div>
-                    <h3>{this.state.title}</h3>
-                    {this.isOwner ? null : <div><Link to={`/Company/${this.publisherID}`}><br /><p>{`At: ${this.publisher}`}</p></Link></div>}
-                    <br />
-                    <p>Description:</p>
-                    <p>{this.state.description}</p>
-                    <br />
-                    <p>Minimum Experience:</p>
-                    <p>{this.state.requiredExperience} years</p>
-                    <br />
-                    <p>Stack: </p>
-                    <p>{this.state.stack}</p>
-                    {this.state.salary ? <p>{`Salary: ${this.state.salary.from} ${this.state.currency} - ${this.state.salary.to} ${this.state.currency}`}</p>
-                        :
-                        <p>{`Salary: N/A }`}</p>
-                    }
-                    {
-                        optionToRender()
-                    }
-                </div>
-
-            </div>
-        )
     }
+
+    return (
+        <div>
+            <NavigationBar />
+            <div style={{ float: 'left' }}>
+                <Sidebar />
+            </div>
+            <div>
+                <h3>{this.state.title}</h3>
+                {this.isOwner ? null : <div><Link to={`/Company/${this.publisherID}`}><br /><p>{`At: ${this.publisher}`}</p></Link></div>}
+                <br />
+                <p>Description:</p>
+                <p>{this.state.description}</p>
+                <br />
+                <p>Minimum Experience:</p>
+                <p>{this.state.requiredExperience} years</p>
+                <br />
+                <p>Stack: </p>
+                <p>{this.state.stack}</p>
+                {this.state.salary ? <p>{`Salary: ${this.state.salary.from} ${this.state.currency} - ${this.state.salary.to} ${this.state.currency}`}</p>
+                    :
+                    <p>{`Salary: N/A }`}</p>
+                }
+                {
+                    optionToRender()
+                }
+            </div>
+
+        </div>
+    )
+}
 }
