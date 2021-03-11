@@ -25,12 +25,13 @@ export default class EditProfile extends React.Component {
                     linkedIn: linkedIn,
                 }
             } else {
-                const { name, city, country, email } = this.props.userInSession;
+                const { name, city, country, email, description } = this.props.userInSession;
                 this.state = {
                     name: name,
                     city: city,
                     country: country,
                     email: email,
+                    description: description
                 }
             }
         }
@@ -42,12 +43,24 @@ export default class EditProfile extends React.Component {
         event.preventDefault();
         let userKind = this.props.userInSession.kind === 'Seeker' ? 'seeker' : 'company'
         let { _id } = this.props.userInSession
-        let { name, lastName, city, country, email, gitHub, linkedIn } = this.state;
+        let { name, lastName, city, country, email, gitHub, linkedIn, description } = this.state;
         let updatedProfile = {}
         let stack = []
 
         if (userKind === 'seeker') {
-            stack = [...this.state.stack]
+            stack = String(this.state.stack)
+            stack = stack.replace(" ", "");
+            stack = stack.split(",")
+            console.log(stack)
+
+            // if (stack.includes(" ")) {
+            //     stack = this.state.stack.split(" ").join("").split(",");
+            //     console.log(stack)
+            // } else {
+            //     stack = [...stack]
+            //     console.log(stack)
+            // }
+
             updatedProfile = { name, lastName, city, country, email, gitHub, linkedIn, stack }
             // try {
             //     stack = [...this.state.stack]
@@ -61,8 +74,10 @@ export default class EditProfile extends React.Component {
             //stack = this.state.stack.includes(" ") ? this.state.stack.split(" ").join("").split(",") : this.state.stack.split(",")
             // updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
         } else {
-            updatedProfile = { name, city, country, email }
+            updatedProfile = { name, city, country, email, description }
         }
+
+        console.log(updatedProfile)
 
 
         this.service.editProfile(userKind, _id, updatedProfile)
@@ -174,6 +189,11 @@ export default class EditProfile extends React.Component {
                     <Form.Group controlId="formGridCountry">
                         <Form.Label>Country</Form.Label>
                         <Form.Control value={this.state.country} onChange={e => this.handleChange(e)} name="country" />
+                    </Form.Group>
+
+                    <Form.Group controlId="formGridDescription">
+                        <Form.Label>Description</Form.Label>
+                        <Form.Control value={this.state.description} onChange={e => this.handleChange(e)} name="description" />
                     </Form.Group>
 
                     <Button variant="primary" type="submit">
