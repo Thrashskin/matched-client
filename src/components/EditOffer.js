@@ -21,7 +21,7 @@ export default class EditOffer extends React.Component {
         this.service.getOfferDetails(this.props.parentProps.match.params.offerID)
             .then(response => {
                 const offerFromDB = response.data
-                this.setState({ ...offerFromDB, salaryFrom: offerFromDB.salary.from, salaryTo: offerFromDB.salary.to }, () => console.log(this.state))
+                this.setState({ ...offerFromDB, salaryFrom: offerFromDB.salary.from, salaryTo: offerFromDB.salary.to }, () => this.forceUpdate())
             })
             .catch(error => console.log(error))
     }
@@ -62,8 +62,13 @@ export default class EditOffer extends React.Component {
 
     EditForm = (props) => {
 
-        if (props.userInSession) {
-            if (props.userInSession.kind === 'Seeker' || (props.userInSession._id !== this.state.publisher)) {
+        console.log(this.state)
+
+        if (this.state.publisher && props.userInSession) {
+
+            console.log('1: ', props.userInSession._id)
+            console.log('2: ', this.state.publisher)
+            if (props.userInSession.kind === 'Seeker' || (props.userInSession._id !== this.state.publisher._id)) {
                 return (
                     <div>
                         <NavigationBar />
