@@ -1,13 +1,13 @@
 .public-profile-wraper {
     width: 1400px;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     margin-left: auto;
     margin-right: auto;
     height: 1300px;
 }
 
 .public-profile-content {
-    border: 3px solid hotpink;
+    /* border: 3px solid hotpink; */
     width: 450px;
     margin-left: auto;
     margin-right: auto;
@@ -21,7 +21,7 @@
 
 .stack-list{
     list-style-type: none;
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     display: flex;
     align-content: center;
     flex-wrap: wrap;

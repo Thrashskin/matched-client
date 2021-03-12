@@ -33,7 +33,21 @@ export default class AddOffer extends React.Component {
     handleFormSubmit(event) {
 
         event.preventDefault();
-        let stackNew = this.state.stack.split(',')
+        let stackNew = this.state.stack
+        stackNew = String(stackNew)
+        stackNew = stackNew.split(" ").join("").split(",")
+        // stackNew = stackNew.split(" ")
+        // stackNew = stackNew.join()
+        // console.log(stackNew)
+        // stackNew = stackNew.replace(" ", "");
+        // console.log(stackNew)
+        // stackNew = stackNew.split(",")
+        // console.log(stackNew)
+
+        console.log(stackNew)
+
+
+
         let offerBody = {
             title: this.state.title,
             description: this.state.description,
@@ -48,17 +62,15 @@ export default class AddOffer extends React.Component {
             }
         }
 
+
+
         this.service.createOffer(offerBody)
             .then(response => {
                 console.log(response)
                 this.parentProps.history.push('/offers')
             }).catch(error => console.log(error.response));
 
-        // axios.post('http://localhost:5000/api/offer', offerBody)
-        // .then( response =>  console.log(response))
-        // .catch(error => console.log(error));
-
-        //console.log(offerBody)
+ 
 
     }
 
