@@ -32,23 +32,21 @@ export default class EditOffer extends React.Component {
         event.preventDefault();
         console.log(this.state)
         let { title, description, stack, currency, requiredExperience } = this.state;
+
+        stack = String(stack)
+        stack = stack.split(" ").join("").split(",")
+
         let salary = {
             from: this.state.salaryFrom,
             to: this.state.salaryTo
         }
+
         let updateBody = { title, description, stack, currency, requiredExperience, salary }
         console.log(updateBody)
+
         this.service.editOffer(this.props.parentProps.match.params.offerID, updateBody)
             .then(response => {
                 console.log(response)
-                // return (
-                //     <Route render={
-                //         props => {
-                //             return <Redirect to={{ pathname: '/offers', state: { from: this.props.location } }} />
-                //         }
-                //     } />
-                // )
-                //this.props.history.push('/offers')
                 this.props.parentProps.history.push('/offers')
             })
             .catch(error => error)
