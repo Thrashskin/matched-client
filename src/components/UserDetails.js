@@ -16,9 +16,14 @@ export default class UserDetails extends React.Component {
     }
 
     async componentDidMount() {
+
+        console.log('mount - details')
+
         const response = await this.service.getProfile(this.kind, this._id);
-        await this.setState(response)
+        await console.log(response)
+        await this.setState({user:response})
         await console.log(this.state)
+        await this.forceUpdate();
     }
 
     // async componentDidUpdate() {

@@ -45,8 +45,8 @@ class AuthService {
     editProfile = (userKind, userID, updatedProfile) => {
         
         return this.service.put(`/${userKind}/${userID}`, updatedProfile)
-        .then(response => console.log(response))
-        .catch(error => console.log(error))
+        .then(response => response)
+        .catch(error => error)
     }
 
     createOffer = (newOffer) => {
