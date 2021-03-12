@@ -89,12 +89,12 @@ export default class OfferSwiper extends React.Component {
                     );
                 } else {
                     return (
-                        <div className="global-container">
+                        <div className="swiper">
                             <NavigationBar />
                             <div style={{ float: 'left' }}>
                                 <Sidebar />
                             </div>
-                            <div style={{ float: 'right', margin: '100px 250px 0 0' }}>
+                            <div className='swiper-offer'>
                                 <p>Sorry, there are no offers matching your current prefferences =(</p>
                             </div>
                         </div>
