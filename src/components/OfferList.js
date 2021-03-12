@@ -79,13 +79,13 @@ export default class OfferList extends React.Component {
 
         return (
             (this.state.offers) ?
-                <div>
+                <div className='global-offer-list-wraper'>
                     <NavigationBar />
                     <div style={{ float: 'left' }}>
                         <Sidebar />
                     </div>
-                    <div>
-                        <ul>
+                    <div className='offer-list-wraper'>
+                        <ul className='offer-list'>
                             {[offersToRender]}
                         </ul>
                     </div>

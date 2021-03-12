@@ -1,0 +1,34 @@
+.chats-wraper{
+    width: 1400px;
+    border: 1px solid blue;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1300px;
+}
+
+.list-wraper{
+    /* border: 3px solid hotpink; */
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+}
+
+.individual-chat{
+    list-style-type: none;
+    
+}
+
+.list-wraper{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.messages-list{
+    list-style-type: none;
+}
+
+
+
+
+

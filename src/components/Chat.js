@@ -108,13 +108,13 @@ class Chat extends React.Component {
 
     if (this.allowed) {
       return (
-        <div>
+        <div className='global-chat-wraper'>
           <NavigationBar />
           <div style={{ float: 'left' }}>
             <Sidebar />
           </div>
-          <div>
-            <ul>
+          <div className='individual-chat-wraper'>
+            <ul className='messages-list'>
               {this.messages.length > 0 ? this.messagesList() : null}
             </ul>
             <Form onSubmit={e => this.handleSubmit(e)}>
@@ -124,7 +124,7 @@ class Chat extends React.Component {
                   <Form.Control type="text" placeholder='Type your message here...' value={this.state.content} onChange={e => this.handleChange(e)} name="content" />
                 </Form.Group>
               </Form.Row>
-              <Button variant="primary" type="submit">Submit</Button>
+              <Button className='dark-custom' variant="primary" type="submit">Submit</Button>
               {/* <Button variant="primary" onClick={() => this.updateChat()}>Update</Button> */}
             </Form>
           </div>

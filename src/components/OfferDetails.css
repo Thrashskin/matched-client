@@ -7,10 +7,42 @@
 
 .link-custom:hover {
     background-color: rgba(20, 20, 20, 0.6);
+    text-decoration: none;
     color: #e85d04;
     
   }
 
   .dark-custom{
       background-color: rgba(20, 20, 20, 0.6);
+      width: 150px;
+  }
+  .dark-custom:hover{
+    background-color: rgba(20, 20, 20, 0.6);
+}
+
+  .offer-details-wraper {
+    width: 1400px;
+    border: 1px solid blue;
+    margin-left: auto;
+    margin-right: auto;
+    height: 1300px;
+  }
+
+  .offer-details-content {
+    border: 3px solid hotpink;
+    width: 450px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+  }
+
+  .operations-container {
+    border: 1px solid black;
+    display: flex;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    justify-content: space-around;
+    /* border: 5px solid red; */
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }

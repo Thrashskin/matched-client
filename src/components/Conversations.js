@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import AuthService from './auth/auth-service';
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
+import './Conversations.css'
 
 export default class Conversations extends React.Component {
 
@@ -42,13 +43,13 @@ export default class Conversations extends React.Component {
                 console.log(conv)
                 if (kind === 'Company') {
                     return (
-                        <li key={index}>
+                        <li key={index} className='individual-chat'>
                             <Link><h4>{`Conversation with: ${conv.seeker.name}`}</h4></Link>
                         </li>
                     )
                 } else {
                     return (
-                        <li key={index}>
+                        <li key={index} className='individual-chat'>
                             <Link to={`/chats/${conv._id}`}><h4>{`Conversation with: ${conv.company.name}`}</h4></Link>
                         </li>
                     )
@@ -64,13 +65,16 @@ export default class Conversations extends React.Component {
 
         if (this.props.loggedInUser) {
             return (
-                <div>
+                <div className='chats-wraper'>
                     <NavigationBar />
                     <div style={{ float: 'left' }}>
                         <Sidebar />
                     </div>
-                    <div>
-                        <ul>
+                    <div className='list-wraper'>
+                        <h1>Chats</h1>
+                        <br/>
+                        <br/>
+                        <ul className='list-wraper'>
                             {[this.conversationsList()]}
                         </ul>
                     </div>
@@ -84,7 +88,9 @@ export default class Conversations extends React.Component {
                     <div style={{ float: 'left' }}>
                         <Sidebar />
                     </div>
-                    <div><p>You need to be logged in to see this section. Please <Link to='/login'>login</Link></p></div>
+                    <div>
+                        <p>You need to be logged in to see this section. Please <Link to='/login'>login</Link></p>
+                        </div>
 
                 </div>
             )

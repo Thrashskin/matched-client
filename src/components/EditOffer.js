@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import AuthService from './auth/auth-service';
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
+import './EditOffer.css'
 
 
 export default class EditOffer extends React.Component {
@@ -70,13 +71,7 @@ export default class EditOffer extends React.Component {
             console.log('2: ', this.state.publisher)
             if (props.userInSession.kind === 'Seeker' || (props.userInSession._id !== this.state.publisher._id)) {
                 return (
-                    <div>
-                        <NavigationBar />
-                    <div style={{ float: 'left' }}>
-                        <Sidebar />
-                    </div>
-                    <div><p>Only the publisher of this offer can access to this section.</p></div>
-                    </div>
+                        <p>Only the publisher of this offer can access to this section.</p>
                 );
             } else {
                 return (
@@ -123,7 +118,7 @@ export default class EditOffer extends React.Component {
                             </Form.Control>
                         </Form.Group>
 
-                        <Button variant="primary" type="submit">
+                        <Button className='dark-custom' variant="primary" type="submit">
                             Submit
                         </Button>
                     </Form>
@@ -138,9 +133,14 @@ export default class EditOffer extends React.Component {
 
     render() {
         return (
-            <div>
-                
-                <this.EditForm userInSession={this.props.userInSession} />
+            <div className='edit-offer-wraper'>
+                <NavigationBar />
+                <div style={{ float: 'left' }}>
+                    <Sidebar />
+                </div>
+                <div className='edit-offer-content'>
+                    <this.EditForm userInSession={this.props.userInSession} />
+                </div>
             </div>
         )
     }

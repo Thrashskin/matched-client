@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button'
 import AuthService from './auth/auth-service'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
+import './AddOffer.css'
 
 export default class AddOffer extends React.Component {
 
@@ -71,12 +72,12 @@ export default class AddOffer extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='create-offer-wraper'>
                 <NavigationBar />
                 <div style={{ float: 'left' }}>
                     <Sidebar />
                 </div>
-                <div>
+                <div className='create-offer-content'>
                     <Form onSubmit={event => this.handleFormSubmit(event)}>
                         <Form.Row>
                             <Form.Group as={Col} controlId="formGridTitle">
@@ -115,7 +116,7 @@ export default class AddOffer extends React.Component {
                         </Form.Row>
 
                         <Form.Row>
-                            <Form.Group controlId="formGridSalary">
+                            <Form.Group as={Col} controlId="formGridSalary">
                                 <Form.Label>Salary</Form.Label>
                                 <br />
                                 <Form.Label>From</Form.Label>

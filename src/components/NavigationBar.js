@@ -44,7 +44,7 @@ export default class NavigationBar extends React.Component {
                         <Nav.Item className='navs-text'><Nav.Link href="/"  bsPrefix={navsLinks}>Home</Nav.Link></Nav.Item>
                         <Nav.Item className='navs-text'><Nav.Link href="/profile"  bsPrefix={navsLinks}>My Profile</Nav.Link></Nav.Item>
                         <Nav.Item className='navs-text'><Nav.Link href="/messages"  bsPrefix={navsLinks}>My messages</Nav.Link></Nav.Item>
-                        <Nav.Item className='navs-text'><Nav.Link to='/login' bsPrefix={logOutButton} onClick={() => this.logOut()}>Logout</Nav.Link></Nav.Item>
+                        <Nav.Item className='navs-text'><Nav.Link href='/login' bsPrefix={logOutButton} onClick={() => this.logOut()}>Logout</Nav.Link></Nav.Item>
                     </Nav>
                 </Navbar>
 

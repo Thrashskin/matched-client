@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import AuthService from './auth/auth-service';
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
+import './EditProfile.css'
 
 export default class EditProfile extends React.Component {
 
@@ -119,15 +120,15 @@ export default class EditProfile extends React.Component {
 
                     <Form.Row>
 
-                    <Form.Group controlId="formGridCity">
-                        <Form.Label>City</Form.Label>
-                        <Form.Control value={this.state.city} onChange={e => this.handleChange(e)} name="city" />
-                    </Form.Group>
+                        <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Label>City</Form.Label>
+                            <Form.Control value={this.state.city} onChange={e => this.handleChange(e)} name="city" />
+                        </Form.Group>
 
-                    <Form.Group controlId="formGridCountry">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Control value={this.state.country} onChange={e => this.handleChange(e)} name="country" />
-                    </Form.Group>
+                        <Form.Group as={Col} controlId="formGridCountry">
+                            <Form.Label>Country</Form.Label>
+                            <Form.Control value={this.state.country} onChange={e => this.handleChange(e)} name="country" />
+                        </Form.Group>
                     </Form.Row>
 
                     <Form.Row>
@@ -160,7 +161,7 @@ export default class EditProfile extends React.Component {
                         <Form.Check type="checkbox" label="Check me out" />
                     </Form.Group> */}
 
-                    <Button variant="primary" type="submit">
+                    <Button className='dark-custom' variant="primary" type="submit">
                         Submit
                     </Button>
                 </Form>
@@ -181,15 +182,19 @@ export default class EditProfile extends React.Component {
 
                     </Form.Row>
 
-                    <Form.Group controlId="formGridCity">
-                        <Form.Label>City</Form.Label>
-                        <Form.Control value={this.state.city} onChange={e => this.handleChange(e)} name="city" />
-                    </Form.Group>
+                    <Form.Row>
+                        <Form.Group as={Col} controlId="formGridCity">
+                            <Form.Label>City</Form.Label>
+                            <Form.Control value={this.state.city} onChange={e => this.handleChange(e)} name="city" />
+                        </Form.Group>
 
-                    <Form.Group controlId="formGridCountry">
-                        <Form.Label>Country</Form.Label>
-                        <Form.Control value={this.state.country} onChange={e => this.handleChange(e)} name="country" />
-                    </Form.Group>
+                        <Form.Group as={Col} controlId="formGridCountry">
+                            <Form.Label>Country</Form.Label>
+                            <Form.Control value={this.state.country} onChange={e => this.handleChange(e)} name="country" />
+                        </Form.Group>
+                    </Form.Row>
+
+
 
                     <Form.Group controlId="formGridDescription">
                         <Form.Label>Description</Form.Label>
@@ -208,15 +213,18 @@ export default class EditProfile extends React.Component {
 
     render() {
         return (
-            <div>
+            <div className='edit-profile-wraper'>
                 <NavigationBar />
                 <div style={{ float: 'left' }}>
                     <Sidebar />
                 </div>
-                {
-                    this.props.userInSession ? <this.EditForm userInSession={this.props.userInSession} /> :
-                        <p>You must be logged in to be able to edit your profile</p>
-                }
+                <div className='edit-profile-content'>
+                    {
+                        this.props.userInSession ? <this.EditForm userInSession={this.props.userInSession} /> :
+                            <p>You must be logged in to be able to edit your profile</p>
+                    }
+                </div>
+
                 {/* <this.EditForm /> */}
             </div>
         )

@@ -3,6 +3,7 @@ import React from 'react';
 import AuthService from './auth/auth-service';
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
+import './PublicProfile.css'
 
 export default class PublicProfile extends React.Component {
 
@@ -65,17 +66,17 @@ export default class PublicProfile extends React.Component {
 
             if (this.state.stack) {
                 techStack = [this.state.stack.map((technology, index) => {
-                    return <li key={index}>{technology}</li>
+                    return <li key={index} className='stack-elem'>{technology}</li>
                 })]
             }
 
             return (
-                <div>
+                <div className='public-profile-wraper'>
                     <NavigationBar />
                     <div style={{ float: 'left' }}>
                         <Sidebar />
                     </div>
-                    <div>
+                    <div className='public-profile-content'>
                         <h1>{`${this.state.name} ${this.state.lastName}`}</h1>
                         <p>Location: {`${this.state.city}, ${this.state.country}`}</p>
                         <p>LinkedIn: {this.state.linkedIn}</p>
@@ -85,14 +86,14 @@ export default class PublicProfile extends React.Component {
                                 <div>
                                     <p>Technologies:</p>
                                     <br />
-                                    <ul>
+                                    <ul className='stack-list'>
                                         {[techStack]}
                                     </ul>
                                 </div>
                                 :
                                 null
                         }
-                        <Button onClick={() => this.renderChat()}>Send Message</Button>
+                        <Button className='dark-custom' onClick={() => this.renderChat()}>Send Message</Button>
                     </div>
 
 
@@ -101,16 +102,16 @@ export default class PublicProfile extends React.Component {
         } else {
 
             return (
-                <div>
+                <div className='public-profile-wraper'>
                     <NavigationBar />
                     <div style={{ float: 'left' }}>
                         <Sidebar />
                     </div>
-                    <div>
+                    <div className='public-profile-content'>
                         <h1>{this.state.name}</h1>
                         <p>Location: {`${this.state.city}, ${this.state.country}`}</p>
                         <p>{`${this.state.description}`}</p>
-                        <Button onClick={() => this.renderChat()}>Send Message</Button>
+                        <Button className='dark-custom' onClick={() => this.renderChat()}>Send Message</Button>
                     </div>
 
                 </div>

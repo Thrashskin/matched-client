@@ -67,112 +67,114 @@ export default class OfferDetails extends React.Component {
 
     SeekerOptions = () => {
 
-        if (this.props.user.kind === 'Seeker') { 
-        if (this.props.user.offers.includes(this.offerID)) {
-            return <p>You already applied to this offer ;)</p>
-        } else if (this.props.user.saved.includes(this.offerID) && !this.props.user.offers.includes(this.offerID)) {
-            return <Button onClick={() => this.applyToOffer()}><Link to='#'>Apply</Link></Button>
+        if (this.props.user.kind === 'Seeker') {
+            if (this.props.user.offers.includes(this.offerID)) {
+                return <div className='operations-container'><p>You already applied to this offer ;)</p></div>
+            } else if (this.props.user.saved.includes(this.offerID) && !this.props.user.offers.includes(this.offerID)) {
+                return <div className='operations-container'><Button onClick={() => this.applyToOffer()}><Link className='link-custom' to='#'>Apply</Link></Button></div>
+            } else {
+                return (
+                    <div className='operations-container'>
+                        <Button className='dark-custom' onClick={() => this.applyToOffer()}><Link className='link-custom' to='#'>Apply</Link></Button>
+                        <Button className='dark-custom' onClick={() => this.saveOffer()}><Link className='link-custom' to='#'>Save for later</Link></Button>
+                    </div>
+                );
+
+            }
         } else {
+            return null
+        }
+    }
+
+    deleteOffer = () => {
+
+        console.log('deleteOffer')
+
+        this.service.deleteOffer(this.offerID)
+            .then(response => console.log(response))
+            .catch(error => error)
+
+    }
+
+
+
+    CompanyOptions = () => {
+
+        if (this.props.user.kind === 'Company') {
             return (
                 <div>
-                    <Button onClick={() => this.applyToOffer()}><Link to='#'>Apply</Link></Button>
-                    <Button onClick={() => this.saveOffer()}><Link to='#'>Save for later</Link></Button>
+                    {this.state.candidates.length > 0 ? <Link to={`/offers/${this.offerID}/candidates`}>See candidates</Link> : <p>There are no candidates yet for this offer.</p>}
+                    <br />
+                    <div className='operations-container'>
+                        <Button className='dark-custom'><Link to={`/offers/${this.offerID}/edit`} className='link-custom'>Edit</Link></Button>
+                        <Button className='dark-custom' onClick={() => this.deleteOffer()}>
+                            <Link to={`/offers`} className='link-custom'>Delete</Link>
+                        </Button>
+                    </div>
                 </div>
             );
-
-        }
-    } else {
-        return null
-    }
-}
-
-deleteOffer = () => {
-
-    console.log('deleteOffer')
-
-    this.service.deleteOffer(this.offerID)
-        .then(response => console.log(response))
-        .catch(error => error)
-
-}
-
-
-
-CompanyOptions = () => {
-    
-    if (this.props.user.kind === 'Company') {
-        return (
-            <div>
-                {this.state.candidates.length > 0 ? <Link to={`/offers/${this.offerID}/candidates`}>See candidates</Link> : <p>There are no candidates yet for this offer.</p>}
-                <br />
-                <Button className='dark-custom'><Link to={`/offers/${this.offerID}/edit`} className='link-custom'>Edit</Link></Button>
-                <Button className='dark-custom' onClick={() => this.deleteOffer()}>
-                    <Link to={`/offers`} className='link-custom'>Delete</Link>
-                </Button>
-            </div>
-        );
-    } else {
-        return null
-    }
-    
-    
-}
-
-render() {
-
-    // let isUserLoggedIn = false;
-    // let isUserCompany = false;
-    // let isOwner = false;
-
-    // if (this.props.user) {
-
-    //     isUserLoggedIn = true;
-
-    //     isUserCompany = this.props.user.kind === 'Company' ? true : false;
-
-    //     isOwner = this.props.user._id === this.state.publisher._id ? true : false;
-    // }
-
-    //We need to make sure that each kind of profile only sees the right options
-    //i.e., a seeker must not be able to edit an offer or a company must not apply to offers.
-    let optionToRender = () => {
-        if (this.isUserLoggedIn && this.isUserCompany && this.isOwner) {
-            return <this.CompanyOptions />
-        } else if (this.isUserLoggedIn && this.isUserCompany && (!this.isOwner)) {
-            return null
         } else {
-            return <this.SeekerOptions />
+            return null
         }
+
+
     }
 
-    return (
-        <div>
-            <NavigationBar />
-            <div style={{ float: 'left' }}>
-                <Sidebar />
-            </div>
-            <div>
-                <h3>{this.state.title}</h3>
-                {this.isOwner ? null : <div><Link to={`/Company/${this.publisherID}`}><br /><p>{`At: ${this.publisher}`}</p></Link></div>}
-                <br />
-                <p>Description:</p>
-                <p>{this.state.description}</p>
-                <br />
-                <p>Minimum Experience:</p>
-                <p>{this.state.requiredExperience} years</p>
-                <br />
-                <p>Stack: </p>
-                <p>{this.state.stack}</p>
-                {this.state.salary ? <p>{`Salary: ${this.state.salary.from} ${this.state.currency} - ${this.state.salary.to} ${this.state.currency}`}</p>
-                    :
-                    <p>{`Salary: N/A }`}</p>
-                }
-                {
-                    optionToRender()
-                }
-            </div>
+    render() {
 
-        </div>
-    )
-}
+        // let isUserLoggedIn = false;
+        // let isUserCompany = false;
+        // let isOwner = false;
+
+        // if (this.props.user) {
+
+        //     isUserLoggedIn = true;
+
+        //     isUserCompany = this.props.user.kind === 'Company' ? true : false;
+
+        //     isOwner = this.props.user._id === this.state.publisher._id ? true : false;
+        // }
+
+        //We need to make sure that each kind of profile only sees the right options
+        //i.e., a seeker must not be able to edit an offer or a company must not apply to offers.
+        let optionToRender = () => {
+            if (this.isUserLoggedIn && this.isUserCompany && this.isOwner) {
+                return <this.CompanyOptions />
+            } else if (this.isUserLoggedIn && this.isUserCompany && (!this.isOwner)) {
+                return null
+            } else {
+                return <this.SeekerOptions />
+            }
+        }
+
+        return (
+            <div className='offer-details-wraper'>
+                <NavigationBar />
+                <div style={{ float: 'left' }}>
+                    <Sidebar />
+                </div>
+                <div className='offer-details-content'>
+                    <h3>{this.state.title}</h3>
+                    {this.isOwner ? null : <div><Link to={`/Company/${this.publisherID}`}><br /><p>{`At: ${this.publisher}`}</p></Link></div>}
+                    <br />
+                    <p>Description:</p>
+                    <p>{this.state.description}</p>
+                    <br />
+                    <p>Minimum Experience:</p>
+                    <p>{this.state.requiredExperience} years</p>
+                    <br />
+                    <p>Stack: </p>
+                    <p>{this.state.stack}</p>
+                    {this.state.salary ? <p>{`Salary: ${this.state.salary.from} ${this.state.currency} - ${this.state.salary.to} ${this.state.currency}`}</p>
+                        :
+                        <p>{`Salary: N/A }`}</p>
+                    }
+                    {
+                        optionToRender()
+                    }
+                </div>
+
+            </div>
+        )
+    }
 }
