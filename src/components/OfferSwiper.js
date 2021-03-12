@@ -76,25 +76,21 @@ export default class OfferSwiper extends React.Component {
             if (this.props.userInSession.kind === 'Seeker') {
 
                 if (this.state.offersToShow.length > 0) {
-                    //console.log(this.state.offersToShow[0])
                     return (
-                        <div className="OfferSwiper">
+                        <div className="swiper">
                             <NavigationBar props={this.props} />
                             <div style={{ float: 'left' }}>
                                 <Sidebar />
                             </div>
-                            {/* <Button><Logout logUserOut={() => this.logOutUser()} /></Button> */}
-                            <div style={{ float: 'right', margin: '100px 250px 0 0' }}>
+                            <div className='swiper-offer'>
                                 <Offer userInSession={this.props.userInSession} currentOffer={this.state.offersToShow[0]} removeFromArray={this.removeFromArray} />
                             </div>
                         </div>
                     );
                 } else {
                     return (
-                        <div className="OfferSwiper">
+                        <div className="global-container">
                             <NavigationBar />
-                            
-                            
                             <div style={{ float: 'left' }}>
                                 <Sidebar />
                             </div>

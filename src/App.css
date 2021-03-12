@@ -1,7 +1,17 @@
-.wrapper {
+/* .wrapper {
   width: 960px;
   margin: 0 auto;
   border: 3px solid green
+} */
+
+.wraper{
+  position: fixed;
+  top: 300px;
+  width: 300px;
+  left: 25%;
+  right: 25%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 header {
@@ -83,6 +93,11 @@ section {
   background-color: rgba(20, 20, 20, 0.9);
 }
 
+.buttonWrapper{
+  display: flex;
+}
+
+
 .linkText{
   color: aliceblue;
 }
@@ -93,21 +108,18 @@ section {
 }
 
 .logo{
-  width: 300px;
+  /* 
   left: 50%;
     height:18em;
-    margin-top: -9em; /*set to a negative number 1/2 of your height*/
-    margin-left: 15em; /*set to a negative number 1/2 of your width*/
+    margin-top: -9em; 
+    margin-left: 15em; */
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.wraper{
-  border: 1px solid pink;
-  position: fixed;
-  top: 300px;
-  width: 50%;
-  left: 25%;
-  right: 25%;
-}
+
+
 
 
 

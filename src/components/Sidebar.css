@@ -3,15 +3,17 @@ img {
 }
 
 
-.myCustomNavLink {
-    font-size: 20px;
+.sideBarLinks {
+    font-size: 25px;
     color: white;
     margin-left: 15px;
     margin-right: 15px;
+    transform: rotate(45deg);
   }
   
-  .myCustomNavLink:hover {
+  .sideBarLinks:hover {
     color: #e85d04;
+    text-decoration: none;
   }
 
   /* .sidebar-custom{

@@ -3,6 +3,7 @@ import { Form, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import AuthService from './auth-service'
 import './Signup.css'
+import logo from '../../logo_black.png'
 
 export default class Signup extends React.Component {
 
@@ -63,6 +64,7 @@ export default class Signup extends React.Component {
   render() {
     return (
       <Container>
+        <img className='logo-login' src={logo} />
         <h3 className='text-center'>Sign Up</h3>
         <Form onSubmit={this.handleFormSubmit}>
 

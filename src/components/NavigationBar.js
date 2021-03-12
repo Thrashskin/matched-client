@@ -7,7 +7,8 @@ import Button from 'react-bootstrap/Button';
 import AuthService from './auth/auth-service'
 import './NavigationBar.css'
 
-const customClass = "myCustomNavLink";
+const navsLinks = "navsLinks";
+const logOutButton = "logout-button";
 
 export default class NavigationBar extends React.Component {
 
@@ -37,13 +38,13 @@ export default class NavigationBar extends React.Component {
         return (
                 <Navbar bg="dark" variant="secondary" className='navbar-border'>
                     {/* <Navbar.Brand href="#home">Logo</Navbar.Brand> */}
-                    <Navbar.Brand href="/"><img src={logo} /></Navbar.Brand>
+                    <Navbar.Brand href="/"><img className='logo-navbar' src={logo} /></Navbar.Brand>
                     
                     <Nav className="ml-auto">
-                        <Nav.Item className='navs-text'><Nav.Link href="/"  bsPrefix={customClass}>Home</Nav.Link></Nav.Item>
-                        <Nav.Item className='navs-text'><Nav.Link href="/profile"  bsPrefix={customClass}>My Profile</Nav.Link></Nav.Item>
-                        <Nav.Item className='navs-text'><Nav.Link href="/messages"  bsPrefix={customClass}>My messages</Nav.Link></Nav.Item>
-                        <Nav.Item className='navs-text'><Link to='/login' onClick={() => this.logOut()}>Logout</Link></Nav.Item>
+                        <Nav.Item className='navs-text'><Nav.Link href="/"  bsPrefix={navsLinks}>Home</Nav.Link></Nav.Item>
+                        <Nav.Item className='navs-text'><Nav.Link href="/profile"  bsPrefix={navsLinks}>My Profile</Nav.Link></Nav.Item>
+                        <Nav.Item className='navs-text'><Nav.Link href="/messages"  bsPrefix={navsLinks}>My messages</Nav.Link></Nav.Item>
+                        <Nav.Item className='navs-text'><Nav.Link to='/login' bsPrefix={logOutButton} onClick={() => this.logOut()}>Logout</Nav.Link></Nav.Item>
                     </Nav>
                 </Navbar>
 

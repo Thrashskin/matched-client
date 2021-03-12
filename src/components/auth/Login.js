@@ -2,7 +2,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import AuthService from './auth-service'
 import { Form, Container } from 'react-bootstrap'
-import Cookies from 'js-cookie'
+import './Login.css'
+import logo from '../../logo_black.png'
 
 export default class Login extends React.Component {
 
@@ -50,7 +51,7 @@ export default class Login extends React.Component {
         } else {
           console.log(response)
           localStorage.setItem('user', JSON.stringify(response))
-          
+
           //Cookies.set('user', JSON.stringify(response))
           this.setState({
             email: '',
@@ -59,7 +60,7 @@ export default class Login extends React.Component {
             console.log('lifting user')
             liftUser(response)
           })
-          
+
         }
       })
       .catch(error => error)
@@ -71,7 +72,9 @@ export default class Login extends React.Component {
     return (
       <Container>
 
+        <img className='logo-login' src={logo} />
         <h3 className='text-center'>Log in</h3>
+        
 
         <Form onSubmit={e => this.handleFormSubmit(e)}>
           <div className="form-group">
@@ -91,9 +94,9 @@ export default class Login extends React.Component {
           {/* <input type="submit" value="Login" /> */}
         </Form>
 
-        
-      <br/>
-        <p className="text-center">Don't have an account? 
+
+        <br />
+        <p className="text-center">Don't have an account?
                 <Link to={"/signup"}> Sign Up</Link>
         </p>
       </Container>

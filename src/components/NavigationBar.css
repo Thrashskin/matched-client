@@ -1,19 +1,35 @@
-img {
-    width: 100px;
+.logo-navbar {
+    width: 120px;
+    margin-left: 10px;
 }
 
 
-.myCustomNavLink {
+.navsLinks {
     font-size: 25px;
     color: white;
     margin-left: 15px;
     margin-right: 15px;
   }
   
-  .myCustomNavLink:hover {
+  .navsLinks:hover {
     color: #e85d04;
+    text-decoration: none;
   }
 
   .navbar-border{
       border-radius: 15px;
   }
+
+  .logout-button {
+    font-size: 25px;
+    color: #e85d04;
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+  
+  .logout-button:hover {
+    color: white;
+    text-decoration: none;
+  }
+
+ 

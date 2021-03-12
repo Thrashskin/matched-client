@@ -41,7 +41,7 @@ class App extends React.Component {
     const userDetails = localStorage.getItem('user') === undefined ? null : localStorage.getItem('user')
 
     this.state = {
-        userInSession: JSON.parse(userDetails)
+      userInSession: JSON.parse(userDetails)
     }
 
 
@@ -97,9 +97,9 @@ class App extends React.Component {
                   <div>
                     <img className='logo' src={logo} />
                   </div>
-                  <div>
-                    <Button className='loginButton' ><Link className='linkText' to="/login">Login</Link></Button>
-                    <Button className='loginButton' ><Link className='linkText' to="/signup">Signup</Link></Button>
+                  <div className='buttonWrapper'>
+                    <Button className='loginButton'><Link className='linkText' to="/login">Login</Link></Button>
+                    <Button className='loginButton'><Link className='linkText' to="/signup">Signup</Link></Button>
                   </div>
                 </div>
               </div>

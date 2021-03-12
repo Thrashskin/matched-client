@@ -2,6 +2,9 @@ import React from 'react';
 import AuthService from './auth/auth-service';
 import Button from 'react-bootstrap/Button';
 import './Offer.css'
+import save from '../save.png'
+import reject from '../reject.png'
+import apply from '../apply.png'
 
 export default class Offer extends React.Component {
     constructor(props) {
@@ -11,7 +14,7 @@ export default class Offer extends React.Component {
         this.handleReject = this.handleReject.bind(this);
         this.handleSave = this.handleSave.bind(this);
         this.handleApply = this.handleApply.bind(this);
-        
+
         this.state = {
             currentOffer: this.props.currentOffer
         }
@@ -26,11 +29,11 @@ export default class Offer extends React.Component {
 
     static getDerivedStateFromProps(nextProps, prevState) {
         console.log(nextProps)
-        let {currentOffer} = nextProps
+        let { currentOffer } = nextProps
         return {
             currentOffer: currentOffer
         }
-    }   
+    }
 
 
 
@@ -66,23 +69,32 @@ export default class Offer extends React.Component {
 
 
     render() {
-            console.log('XXXXXXXX', this.state.currentOffer)
-            let {title, description, salary} = this.state.currentOffer
+        // console.log('XXXXXXXX', this.state.currentOffer)
+        let { title, description, salary } = this.state.currentOffer
         return (
-            <div>
+            <div >
                 {/* <div>
                     <h2>HERE GOES THE LOGO</h2><h2>HERE GOES THE NAME</h2>
                 </div> */}
-                <div>
-                <h1>{title}</h1>
-                <p>{description}</p>
-                <p>{`${salary.from}€ - ${salary.to}€`}</p>
+                <div className='offer-container-swiper'>
+                <div className='offer-content'>
+                    <h1>{title}</h1>
+                    <p>{description}</p>
+                    <h3><b>{`${salary.from}€ - ${salary.to}€`}</b></h3>
                 </div>
                 <div className='options-container'>
-                    <Button onClick={() => this.handleReject()}>Reject</Button>
-                    <Button onClick={() => this.handleSave()}>Save For Later</Button>
-                    <Button onClick={() => this.handleApply()}>Apply</Button>
+                    <Button className='offerSwiperButton' onClick={() => this.handleReject()}>
+                        <img src={reject} />
+                    </Button>
+                    <Button className='offerSwiperButton' onClick={() => this.handleSave()}>
+                        <img src={save} />
+                    </Button>
+                    <Button className='offerSwiperButton' onClick={() => this.handleApply()}>
+                        <img src={apply} />
+                    </Button>
                 </div>
+                </div>
+                
             </div>
         );
     }
