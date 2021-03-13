@@ -59,10 +59,12 @@ export default class OfferList extends React.Component {
     render() {
 
         const offersToRender = this.state.offers.map((offer, index) => {
+            console.log(offer.stack)
+            var splittedStack = offer.stack.join(" ")
             return (
                 <li key={index} className='offer'>
                     <Link to={`/offers/${offer._id}`}><h5>{offer.title}</h5></Link>
-                    <p>{offer.stack}</p>
+                    <p>{splittedStack}</p>
                     {this.renderCandidates(offer)}
                 </li>)
         })
