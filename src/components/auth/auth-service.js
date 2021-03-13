@@ -28,7 +28,7 @@ class AuthService {
     logout = () => {
         return this.service.get('/logout', {})
         .then(response => {
-            console.log(response.data);
+            // console.log(response.data);
             return response.data
         })
         .catch(error => {

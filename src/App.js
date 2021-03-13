@@ -59,7 +59,7 @@ class App extends React.Component {
   }
 
   setUserInSession = userObject => {
-    console.log(userObject)
+    //console.log(userObject)
     this.setState({
       userInSession: userObject
     }, () => {
