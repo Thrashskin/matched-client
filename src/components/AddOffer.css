@@ -1,13 +1,11 @@
 .create-offer-wraper{
     width: 1400px;
-    /* border: 1px solid blue; */
     margin-left: auto;
     margin-right: auto;
     height: 1300px;
 }
 
 .create-offer-content{
-    /* border: 3px solid hotpink; */
     width: 450px;
     margin-left: auto;
     margin-right: auto;

@@ -1,25 +1,19 @@
 import React from 'react'
 import Offer from './Offer';
-import AuthService from './auth/auth-service'
-import './OfferSwiper.css'
+import BackEndService from './auth/backend-service'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
-//import Logout from './auth/Logout'
-import Button from 'react-bootstrap/Button';
+import './OfferSwiper.css'
+
 
 export default class OfferSwiper extends React.Component {
 
     constructor(props) {
-
         super(props);
-
         this.state = {
             offersToShow: []
         }
-
-
-        this.service = new AuthService();
-
+        this.service = new BackEndService();
     }
 
     componentDidMount() {
@@ -27,7 +21,6 @@ export default class OfferSwiper extends React.Component {
         if (this.props.userInSession) {
             this.service.getAllOffers()
                 .then(response => {
-                    console.log('pre filtro', response)
                     let filteredOffers = response.data.filter(offer => {
                         let notApplied = this.props.userInSession.offers.includes(offer._id) ? false : true
                         let notSaved = this.props.userInSession.saved.includes(offer._id) ? false : true
@@ -39,12 +32,9 @@ export default class OfferSwiper extends React.Component {
                             return null
                         }
                     })
-                    console.log('post filtro', filteredOffers)
                     this.setState({
                         offersToShow: filteredOffers
                     }, () => {
-                        // this.currentOffer = this.state.offersToShow[0];
-                        // console.log(this.state)
                         this.forceUpdate()
                     })
                 })
@@ -53,24 +43,17 @@ export default class OfferSwiper extends React.Component {
     }
 
     removeFromArray = (offerID) => {
-        //TODO: Based on the logic of this element removing only the first element would be enough.
-        console.log('OFFER TO REMOVE: ', offerID)
-        console.log(this.state.offersToShow);
         let offersCopy = [...this.state.offersToShow]
-        //offersCopy.splice(offersCopy.indexOf(offerID), 1)
         offersCopy.shift();
         this.setState({
             offersToShow: offersCopy
         }, () => {
             this.currentOffer = this.state.offersToShow[0]
-            console.log(this.state)
             this.forceUpdate()
         });
     }
 
     render() {
-        console.log(this.props)
-
         if (this.props.userInSession) {
 
             if (this.props.userInSession.kind === 'Seeker') {

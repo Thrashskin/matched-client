@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import AuthService from './auth-service'
+import BackEndService from './auth/backend-service'
 import { Form, Container } from 'react-bootstrap'
 import './Login.css'
 import logo from '../../logo_black.png'
@@ -19,7 +19,7 @@ export default class Login extends React.Component {
       errorMessage: ''
     }
 
-    this.service = new AuthService();
+    this.service = new BackEndService();
   }
 
   handleChange(event) {
@@ -38,8 +38,6 @@ export default class Login extends React.Component {
 
     this.service.login(email, password)
       .then(response => {
-        //      console.log(response)
-
         if (response.errorMessage) {
 
           this.setState({
@@ -49,15 +47,11 @@ export default class Login extends React.Component {
           })
 
         } else {
-          console.log(response)
           localStorage.setItem('user', JSON.stringify(response))
-
-          //Cookies.set('user', JSON.stringify(response))
           this.setState({
             email: '',
             password: ''
           }, () => {
-            console.log('lifting user')
             liftUser(response)
           })
 
@@ -85,13 +79,11 @@ export default class Login extends React.Component {
           <div className="form-group">
             <Form.Label>Password:</Form.Label>
             <Form.Control name="password" type="password" value={this.state.password} onChange={e => this.handleChange(e)} />
-            {/* <input name="password" type="password" className="form-control" value={this.state.password} onChange={ e => this.handleChange(e)} /> */}
           </div>
 
           {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
 
           <button type="submit" className="btn btn-dark btn-lg btn-block">Log In</button>
-          {/* <input type="submit" value="Login" /> */}
         </Form>
 
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-class AuthService {
+class BackEndService {
     constructor() {
         let service = axios.create({
             baseURL: `${process.env.REACT_APP_API_URL}/api`,
@@ -11,7 +11,7 @@ class AuthService {
     }
 
     signup = (email, password, kind) => {
-        return this.service.post('/signup', {email, password, kind}) //remember, this is actually an axios request.
+        return this.service.post('/signup', {email, password, kind}) 
         .then(response => response.data)
         .catch(error => error.response.data);
     }
@@ -20,7 +20,6 @@ class AuthService {
         return this.service.post('login', {email, password})
         .then(response => response.data)
         .catch(error => {
-            //console.log(error.response.data)
             return error.response.data
         })
     }
@@ -28,7 +27,6 @@ class AuthService {
     logout = () => {
         return this.service.get('/logout', {})
         .then(response => {
-            // console.log(response.data);
             return response.data
         })
         .catch(error => {
@@ -55,7 +53,7 @@ class AuthService {
         .catch(error => error);
     }
 
-    getOffers = (companyID) => { //MAYBE this one doesn't need to be done through the service.
+    getOffers = (companyID) => { 
         return this.service.get(`${companyID}/offers`)
         .then(response => response)
         .catch(error => error)
@@ -74,7 +72,7 @@ class AuthService {
     }
 
 
-    getSavedOffers = (seekerID) => { //MAYBE this one doesn't need to be done through the service.
+    getSavedOffers = (seekerID) => { 
         return this.service.get(`/${seekerID}/saved`)
         .then(response => response)
         .catch(error => error)
@@ -83,7 +81,6 @@ class AuthService {
     getOfferDetails = (offerID) => {
         return this.service.get(`offer/${offerID}`)
         .then(response => {
-            console.log(response)
             return response
         })
         .catch(error => error)
@@ -98,7 +95,6 @@ class AuthService {
     deleteOffer = (offerID) => {
         return this.service.delete(`/offer/${offerID}`)
         .then(response => {
-            console.log(response)
             return response
         })
         .catch(error => error)
@@ -107,7 +103,6 @@ class AuthService {
     applyToOffer = (offerID) => {
         return this.service.put(`/offer/${offerID}/apply`)
         .then(response => {
-            console.log(response)
             return response
         })
         .catch(error => error)
@@ -116,7 +111,6 @@ class AuthService {
     saveOffer = (offerID) => {
         return this.service.put(`/offer/${offerID}/save`)
         .then(response => {
-            console.log(response)
             return response
         })
         .catch(error => error)
@@ -125,7 +119,6 @@ class AuthService {
     rejectOffer = (offerID) => {
         return this.service.put(`/offer/${offerID}/reject`)
         .then(response => {
-            console.log(response)
             return response
         })
         .catch(error => error)
@@ -145,7 +138,6 @@ class AuthService {
         //participants is an object containing a company ID and a seeker ID.
         return this.service.post('/chats/create', participants)
         .then(response => {
-            console.log(response)
             return response
         })
         .catch(error => error)
@@ -154,7 +146,6 @@ class AuthService {
     getChatByID = (chatID) => {
         return this.service.get(`/chats/${chatID}`)
         .then(response => {
-            console.log(response)
             return response
         })
         .catch(error => error)
@@ -163,7 +154,6 @@ class AuthService {
     submitMessage = (chatID, message) => {
         return this.service.post(`/chats/${chatID}/createMessage`, message)
         .then(response => {
-            console.log(response)
             return response
         })
         .catch(error => console.log(error));
@@ -176,4 +166,4 @@ class AuthService {
     }
 }
 
-export default AuthService;
+export default BackEndService;

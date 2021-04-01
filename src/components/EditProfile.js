@@ -2,7 +2,7 @@ import React from 'react';
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
-import AuthService from './auth/auth-service';
+import BackEndService from './auth/backend-service'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
 import './EditProfile.css'
@@ -37,7 +37,7 @@ export default class EditProfile extends React.Component {
             }
         }
 
-        this.service = new AuthService();
+        this.service = new BackEndService();
     }
 
     handleFormSubmit(event) {
@@ -52,38 +52,13 @@ export default class EditProfile extends React.Component {
             stack = String(this.state.stack)
             stack = stack.replace(" ", "");
             stack = stack.split(",")
-            console.log(stack)
-
-            // if (stack.includes(" ")) {
-            //     stack = this.state.stack.split(" ").join("").split(",");
-            //     console.log(stack)
-            // } else {
-            //     stack = [...stack]
-            //     console.log(stack)
-            // }
-
             updatedProfile = { name, lastName, city, country, email, gitHub, linkedIn, stack }
-            // try {
-            //     stack = [...this.state.stack]
-            //     console.log(stack)
-            //     stack = this.state.stack.split(" ").join("").split(",");
-            //     updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
-            // } catch (error) {
-            //     stack = this.state.stack.split(",");
-            //     updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
-            // }
-            //stack = this.state.stack.includes(" ") ? this.state.stack.split(" ").join("").split(",") : this.state.stack.split(",")
-            // updatedProfile = {name, lastName, city, country, email, gitHub, linkedIn, stack}
         } else {
             updatedProfile = { name, city, country, email, description }
         }
 
-        console.log(updatedProfile)
-
-
         this.service.editProfile(userKind, _id, updatedProfile)
             .then(response => {
-                console.log(response);
                 this.props.parentProps.history.push('/profile')
             })
             .catch(error => error)
@@ -147,19 +122,7 @@ export default class EditProfile extends React.Component {
                             <Form.Label>GitHub Profile</Form.Label>
                             <Form.Control value={this.state.gitHub} onChange={e => this.handleChange(e)} name="gitHub" />
                         </Form.Group>
-
-                        {/* <Form.Group as={Col} controlId="formGridState">
-                            <Form.Label>State</Form.Label>
-                            <Form.Control as="select" defaultValue="Choose...">
-                                <option>Choose...</option>
-                                <option>...</option>
-                            </Form.Control>
-                        </Form.Group> */}
                     </Form.Row>
-
-                    {/* <Form.Group id="formGridCheckbox">
-                        <Form.Check type="checkbox" label="Check me out" />
-                    </Form.Group> */}
 
                     <Button className='dark-custom' variant="primary" type="submit">
                         Submit
@@ -210,7 +173,6 @@ export default class EditProfile extends React.Component {
 
     }
 
-
     render() {
         return (
             <div className='edit-profile-wraper'>
@@ -224,8 +186,6 @@ export default class EditProfile extends React.Component {
                             <p>You must be logged in to be able to edit your profile</p>
                     }
                 </div>
-
-                {/* <this.EditForm /> */}
             </div>
         )
     }

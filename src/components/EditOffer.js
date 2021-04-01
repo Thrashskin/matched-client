@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
-import AuthService from './auth/auth-service';
+import BackEndService from './auth/backend-service'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
 import './EditOffer.css'
@@ -14,11 +14,10 @@ export default class EditOffer extends React.Component {
     constructor(props) {
         super(props)
         this.state = {}
-        this.service = new AuthService();
+        this.service = new BackEndService();
     }
 
     componentDidMount() {
-        console.log(this.props)
         this.service.getOfferDetails(this.props.parentProps.match.params.offerID)
             .then(response => {
                 const offerFromDB = response.data
@@ -30,7 +29,6 @@ export default class EditOffer extends React.Component {
 
     handleFormSubmit(event) {
         event.preventDefault();
-        console.log(this.state)
         let { title, description, stack, currency, requiredExperience } = this.state;
 
         stack = String(stack)
@@ -42,11 +40,8 @@ export default class EditOffer extends React.Component {
         }
 
         let updateBody = { title, description, stack, currency, requiredExperience, salary }
-        console.log(updateBody)
-
         this.service.editOffer(this.props.parentProps.match.params.offerID, updateBody)
             .then(response => {
-                console.log(response)
                 this.props.parentProps.history.push('/offers')
             })
             .catch(error => error)
@@ -56,17 +51,12 @@ export default class EditOffer extends React.Component {
         const { name, value } = event.target;
         this.setState({
             [name]: value
-        }, () => console.log(this.state))
+        })
     }
 
     EditForm = (props) => {
 
-        console.log(this.state)
-
         if (this.state.publisher && props.userInSession) {
-
-            console.log('1: ', props.userInSession._id)
-            console.log('2: ', this.state.publisher)
             if (props.userInSession.kind === 'Seeker' || (props.userInSession._id !== this.state.publisher._id)) {
                 return (
                         <p>Only the publisher of this offer can access to this section.</p>

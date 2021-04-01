@@ -22,14 +22,12 @@
 
   .offer-details-wraper {
     width: 1400px;
-    /* border: 1px solid blue; */
     margin-left: auto;
     margin-right: auto;
     height: 1300px;
   }
 
   .offer-details-content {
-    /* border: 3px solid hotpink; */
     width: 450px;
     margin-left: auto;
     margin-right: auto;
@@ -37,12 +35,10 @@
   }
 
   .operations-container {
-    /* border: 1px solid black; */
     display: flex;
     width: 400px;
     margin-left: auto;
     margin-right: auto;
     justify-content: space-around;
-    /* border: 5px solid red; */
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }

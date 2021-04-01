@@ -1,7 +1,5 @@
 import React from 'react'
-import { Navbar, Nav, Container } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
-import logo from '../logo_white.png'
+import { Navbar, Nav } from 'react-bootstrap'
 import './Sidebar.css'
 
 const sideBarLinks = "sideBarLinks";

@@ -2,7 +2,7 @@ import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
-import AuthService from './auth/auth-service'
+import BackEndService from './auth/backend-service'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
 import './AddOffer.css'
@@ -24,9 +24,7 @@ export default class AddOffer extends React.Component {
         }
 
         this.parentProps = props;
-        this.service = new AuthService();
-
-        console.log(this.props)
+        this.service = new BackEndService();
 
     }
 
@@ -36,17 +34,6 @@ export default class AddOffer extends React.Component {
         let stackNew = this.state.stack
         stackNew = String(stackNew)
         stackNew = stackNew.split(" ").join("").split(",")
-        // stackNew = stackNew.split(" ")
-        // stackNew = stackNew.join()
-        // console.log(stackNew)
-        // stackNew = stackNew.replace(" ", "");
-        // console.log(stackNew)
-        // stackNew = stackNew.split(",")
-        // console.log(stackNew)
-
-        console.log(stackNew)
-
-
 
         let offerBody = {
             title: this.state.title,
@@ -62,15 +49,10 @@ export default class AddOffer extends React.Component {
             }
         }
 
-
-
         this.service.createOffer(offerBody)
             .then(response => {
-                console.log(response)
                 this.parentProps.history.push('/offers')
             }).catch(error => console.log(error.response));
-
- 
 
     }
 

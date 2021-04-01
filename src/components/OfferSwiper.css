@@ -1,17 +1,12 @@
 .swiper {
     width: 1400px;
-    /* border: 1px solid blue; */
     margin-left: auto;
     margin-right: auto;
     height: 1300px;
 }
 
 .swiper-offer{
-    /* border: 6px solid greenyellow; */
-    /* float: 'right'; */
     height: 350px;
     margin-top: 50px;
-    /* margin: 300px 200px 0 0; */
-    
 }
 

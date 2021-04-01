@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from './auth/auth-service';
+import BackEndService from './auth/backend-service'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
 import './Conversations.css'
@@ -14,23 +14,18 @@ export default class Conversations extends React.Component {
             conversations: []
         }
 
-        this.service = new AuthService();
-
-        console.log(props);
+        this.service = new BackEndService();
     }
 
     componentDidMount() {
         this.service.getMyMessages(this.props.loggedInUser._id)
             .then(response => {
                 let conversations = response.data
-                console.log(conversations)
                 this.setState({
                     conversations: conversations
                 }, () => {
-                    console.log(this.state)
                     this.forceUpdate()
                 })
-                //console.log(response.data)
             })
             .catch(error => console.log(error));
     }
@@ -38,9 +33,7 @@ export default class Conversations extends React.Component {
     conversationsList = () => {
         let { kind } = this.props.loggedInUser.kind;
         if (this.state.conversations.length > 0) {
-            console.log('awesome')
             return this.state.conversations.map((conv, index) => {
-                console.log(conv)
                 if (kind === 'Company') {
                     return (
                         <li key={index} className='individual-chat'>

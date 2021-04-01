@@ -32,9 +32,7 @@ export default class Profile extends React.Component {
                             <div>
                                 <p>Please, log in =)</p>
                             </div>
-
                         </div>
-
                 }
             </div>
         )

@@ -1,35 +1,26 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import AuthService from './auth/auth-service';
+import BackEndService from './auth/backend-service'
 import Button from 'react-bootstrap/Button';
-import './OfferDetails.css'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
+import './OfferDetails.css'
 
 export default class OfferDetails extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {}
-        this.service = new AuthService();
+        this.service = new BackEndService();
         this.offerID = this.props.parentProps.match.params.offerID;
-
-
         this.isUserLoggedIn = false;
         this.isUserCompany = false;
         this.isOwner = false;
-
         this.publisher = '';
         this.publisherID = '';
-
-
-
-        console.log(this.props)
     }
 
     componentDidMount() {
-        //let {offerID} = this.props.parentProps.match.params;
-        console.log(this.props)
         this.service.getOfferDetails(this.offerID)
             .then(response => {
                 let offerDetails = response.data
@@ -79,7 +70,6 @@ export default class OfferDetails extends React.Component {
                         <Button className='dark-custom' onClick={() => this.saveOffer()}><Link className='link-custom' to='#'>Save for later</Link></Button>
                     </div>
                 );
-
             }
         } else {
             return null
@@ -87,17 +77,11 @@ export default class OfferDetails extends React.Component {
     }
 
     deleteOffer = () => {
-
-        console.log('deleteOffer')
-
         this.service.deleteOffer(this.offerID)
             .then(response => console.log(response))
             .catch(error => error)
 
     }
-
-
-
     CompanyOptions = () => {
 
         if (this.props.user.kind === 'Company') {
@@ -121,19 +105,6 @@ export default class OfferDetails extends React.Component {
     }
 
     render() {
-
-        // let isUserLoggedIn = false;
-        // let isUserCompany = false;
-        // let isOwner = false;
-
-        // if (this.props.user) {
-
-        //     isUserLoggedIn = true;
-
-        //     isUserCompany = this.props.user.kind === 'Company' ? true : false;
-
-        //     isOwner = this.props.user._id === this.state.publisher._id ? true : false;
-        // }
 
         //We need to make sure that each kind of profile only sees the right options
         //i.e., a seeker must not be able to edit an offer or a company must not apply to offers.

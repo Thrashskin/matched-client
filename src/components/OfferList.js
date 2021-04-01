@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from './auth/auth-service';
+import BackEndService from './auth/backend-service'
 import './OfferList.css'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
@@ -13,7 +13,7 @@ export default class OfferList extends React.Component {
             offers: []
         }
 
-        this.service = new AuthService();
+        this.service = new BackEndService();
         this.path = this.props.match.path
     }
 
@@ -59,7 +59,6 @@ export default class OfferList extends React.Component {
     render() {
 
         const offersToRender = this.state.offers.map((offer, index) => {
-            console.log(offer.stack)
             var splittedStack = offer.stack.join(" ")
             return (
                 <li key={index} className='offer'>

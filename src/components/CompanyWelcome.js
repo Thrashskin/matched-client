@@ -1,8 +1,4 @@
 import React from 'react'
-import Form from 'react-bootstrap/Form'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
-import AuthService from './auth/auth-service'
 import NavigationBar from './NavigationBar'
 import Sidebar from './Sidebar'
 import './CompanyWelcome.css'

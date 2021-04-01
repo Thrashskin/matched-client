@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form, Container } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import AuthService from './auth-service'
+import BackEndService from './auth/backend-service'
 import './Signup.css'
 import logo from '../../logo_black.png'
 
@@ -20,10 +20,8 @@ export default class Signup extends React.Component {
       errorMessage: ''
     }
 
-    this.service = new AuthService();
+    this.service = new BackEndService();
   }
-
-
 
   handleFormSubmit(event) {
     event.preventDefault();
@@ -38,7 +36,6 @@ export default class Signup extends React.Component {
             errorMessage: response.errorMessage
           })
         } else {
-          console.log(response)
           localStorage.setItem('user', JSON.stringify(response.newUser))
           this.props.setUser(response.newUser);
           this.setState({
@@ -48,7 +45,6 @@ export default class Signup extends React.Component {
             errorMessage: ''
           });
         }
-        //console.log(response.errorMessage)
       })
       .catch(error => error);
 
@@ -82,12 +78,6 @@ export default class Signup extends React.Component {
               <option>Hire the best talent in the world</option>
             </select>
           </div>
-
-
-
-
-
-
           <br />
           <button type="submit" className="btn btn-dark btn-lg btn-block">Sign Up</button>
 

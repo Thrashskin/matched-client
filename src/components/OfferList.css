@@ -10,14 +10,12 @@
 
 .global-offer-list-wraper {
     width: 1400px;
-    /* border: 1px solid blue; */
     margin-left: auto;
     margin-right: auto;
     height: 1300px;
 }
 
 .offer-list-wraper {
-    /* border: 3px solid hotpink; */
     width: 650px;
     margin-left: auto;
     margin-right: auto;
