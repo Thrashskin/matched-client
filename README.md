@@ -6,6 +6,7 @@
 
 - [About](#About)
 - [Installation](#Installation)
+- [Features](#Installation)
 - [License](#License)
 - [Footer](#footer)
 
@@ -14,6 +15,25 @@
 
 
 This repository contains the code of the front-end for Matched, a full-stack (MERN) Tinder-based web-app for job huntig.
+
+# Features
+
+- Sign up (as a company or as a job seeker), log in, log out, protected routes.
+- Edit public profile (for both, companies and job seekers.)
+- If registered as a company:
+    - Publish, edit and delete job offers.
+    - See the list of published offers (with the number of candidates that applied to the offer).
+    - See the list of candidates.
+    - Send direct messages to candidates.
+    - Chat with candidates regarding job offers.
+- If registered as a job seeker:
+    - As soon as you log in, you will automatically see offers that match your preferences and location.
+    - Apply, save and reject job offers.
+    - Access the public profile of the companies.
+    - Send direct messages to companies.
+    - Chat with companies regarding job offers.
+
+
 
 
 # Installation
